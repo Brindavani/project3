@@ -1,43 +1,42 @@
-
 {
  "name": "",
  "children": [
    {
     "name": "Fauna",
     "free": true,
-    "description": "Interactive authoring tools",
+    "description": "Animal life of any particular region or time",
     "children": [
      {
       "name": "Vertebrates",
-      "description": "Web-based 'cloud' applications for authoring data visualisations",
+      "description": "Oraganisms that have vertebral column",
       "free": true,
       "children": [
        {
         "name": "Reptiles",
-        "description": "An open-source platform for publishing charts on the web. Cloud-based or self-hosted.",
+        "description": "Vertebrates that have four limbs",
         "url": "https://datawrapper.de/",
         "free": true
        },
        {
         "name": "Amphibians",
-        "description": "Spreadsheet in the cloud with charting",
+        "description": "Vertebrates that can live on both land and water",
         "free": true
        },
        {
         "name": "Birds",
-        "description": "Cloud-based interactive tool for creating data visualisations",
+        "description": "Vertebrates characterised by wings,beaked-jaws",
         "url": "https://plot.ly/",
         "free": true
        },
        {
         "name": "Mammals",
-        "description": "Open-source interactive tool for creating and exporting D3-like charts",
+        "description": "Vertebrates that give birth to live young",
         "url": "http://raw.densitydesign.org/",
         "free": true
        },
 	   {
         "name": "Fish",
-        "description": "Open-source interactive tool for creating and exporting D3-like charts",
+        "description": "Vertebrates that breathe through gills",
         "url": "http://raw.densitydesign.org/",
         "free": true
        }
@@ -45,47 +44,48 @@
      },
      {
       "name": "Invertebrates",
+      "description": "Oraganisms that don't have vertebral column",
 	  "free": true,
       "children": [
        {
         "name": "Protozoa",
-        "description": "Powerful tool for data analytics and visualisation",
+        "description": "The single-celled invertebrates",
         "url": "http://www.tableausoftware.com/products/desktop",
 		"free": true
        },
        {
         "name": "Flatworms",
-        "description": "Free version of Tableau Desktop where charts are public",
+        "description": "Soft-bodied Invertebrates that donot have specialized circulatory and respiratory organs",
         "url": "http://www.tableausoftware.com/products/public",
         "free": true
        },
 	   {
         "name": "Coelenterates",
-        "description": "Powerful tool for data analytics and visualisation",
+        "description": "Aquatic Invertebrates with radially symmetrical bodyform",
         "url": "http://www.tableausoftware.com/products/desktop",
 		"free": true
        },
 	   {
         "name": "Annelid worms",
-        "description": "Powerful tool for data analytics and visualisation",
+        "description": "Ringed worms and segmented worms",
         "url": "http://www.tableausoftware.com/products/desktop",
 		"free": true
        },
 	   {
         "name": "Molluscs",
-        "description": "Powerful tool for data analytics and visualisation",
+        "description": "Marine invertebrates with significant cavity for breathing and excretion",
         "url": "http://www.tableausoftware.com/products/desktop",
 		"free": true
        },
 	   {
         "name": "Echinoderms",
-        "description": "Powerful tool for data analytics and visualisation",
+        "description": "Marine Invertebrates with radial symmetrical structure",
         "url": "http://www.tableausoftware.com/products/desktop",
 		"free": true
        },
 	   {
         "name": "Arthropods",
-        "description": "Powerful tool for data analytics and visualisation",
+        "description": "Invertebrates that have exoskeleton",
         "url": "http://www.tableausoftware.com/products/desktop",
 		"free": true
        }
@@ -95,34 +95,34 @@
    },
    {
     "name": "Flora",
-    "description": "Code-based data visualisation creation",
+    "description": "Plant life occuring in particular region or time",
     "free": true,
     "children": [
      {
       "name": "Cryptogamae",
-      "description": "The language behind most (all?) browser-based data visualisations",
+      "description": "Plants that reproduce by spores",
       "free": true,
       "children": [
        {
         "name": "Thallophyta",
-        "description": "Off-the-shelf pre-designed charts. Easy to use but less flexible.",
+        "description": "Plants with undifferentiated body",
         "free": true,
         "children": [
          {
           "name": "Algae",
-          "description": "A good selection of charts including bar, line, scatter, geo, pie, donut, org etc.",
+          "description": "plants that reproduce by cell division",
           "url": "https://developers.google.com/chart/",
           "free": true
          },
          {
           "name": "Fungi",
-          "description": "Beautiful line, scatter and histogram charts built on top of D3",
+          "description": "Unicellular organism",
           "url": "http://metricsgraphicsjs.org/",
           "free": true
          },
 		 {
           "name": "Lichens",
-          "description": "Beautiful line, scatter and histogram charts built on top of D3",
+          "description": "Its a composite organism living among filaments among fungus",
           "url": "http://metricsgraphicsjs.org/",
           "free": true
          }
@@ -130,40 +130,40 @@
        },
        {
         "name": "Bryophyta",
-        "description": "For maximum flexibility, custom coding is the way to go. These libraries will lend a hand.",
+        "description": "Non-vascular plants",
         "free": true
        },
 	   {
         "name": "Pteridophyta",
-        "description": "For maximum flexibility, custom coding is the way to go. These libraries will lend a hand.",
+        "description": "Vascular plants that reproduce via spores",
         "free": true
        }
       ]
      },
      {
       "name": "Phanerogamae",
-      "description": "Non-JavaScript languages for producing web-based data visualisations",
+      "description": "Plants that produce seeds",
       "free": true,
       "children": [
        {
         "name": "Gymnospermae",
-        "description": "Python's a very popular language in data science and is a pleasant language to learn and use",
+        "description": "Plants with cones as reproductive organs",
         "free": true
        },
        {
         "name": "Angiospermae",
-        "description": "Very popular language for data science",
+        "description": "Plants with flowers as reproductive organs",
         "free": true,
         "children": [
          {
           "name": "Monocot",
-          "description": "A platform for producing web applications using R",
+          "description": "Flowering plants whose seed contain one embryonic leaf",
           "url": "http://shiny.rstudio.com/",
           "free": true
          },
 		 {
           "name": "Dicot",
-          "description": "A platform for producing web applications using R",
+          "description": "Flowering plants whose seeds contain two embryonic leaves",
           "url": "http://shiny.rstudio.com/",
           "free": true
          }
