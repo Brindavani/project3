@@ -15,30 +15,171 @@
         "name": "Reptiles",
         "description": "Vertebrates that have four limbs",
         "url": "https://datawrapper.de/",
-        "free": true
+        "free": true,
+	       "children": [ 
+               {
+           "name": "Crocodile",
+           "description": "" ,
+           "free": true
+               },
+              {
+           "name": "Snake",
+           "description": "" ,
+           "free": true
+               },
+                  {
+           "name": "Lizard",
+           "description":  "",
+           "free": true
+               },
+                  {
+           "name": "Turtle",
+           "description":""  ,
+           "free": true
+               },
+                  {
+           "name": "Dinosaur",
+           "description": "" ,
+           "free": true
+               }
+          
+           ]
        },
        {
         "name": "Amphibians",
         "description": "Vertebrates that can live on both land and water",
-        "free": true
+        "free": true,
+	       "children": [ 
+               {
+           "name": "Frog",
+           "description": "" ,
+           "free": true
+               },
+              {
+           "name": "Salamander",
+           "description": "" ,
+           "free": true
+               },
+                  {
+           "name": "Toads",
+           "description":  "",
+           "free": true
+               },
+                  {
+           "name": "Newt",
+           "description":""  ,
+           "free": true
+               }
+             
+          
+           ]
        },
        {
         "name": "Birds",
         "description": "Vertebrates characterised by wings,beaked-jaws",
         "url": "https://plot.ly/",
-        "free": true
+        "free": true,
+	       "children": [ 
+               {
+           "name": "Humminbird",
+           "description": "" ,
+           "free": true
+               },
+              {
+           "name": "Penguin",
+           "description": "" ,
+           "free": true
+               },
+                  {
+           "name": "crane",
+           "description":  "",
+           "free": true
+               },
+                  {
+           "name": "Vulture",
+           "description":""  ,
+           "free": true
+               },
+                  {
+           "name": "Eagle",
+           "description": "" ,
+           "free": true
+               }
+          
+           ]
        },
        {
         "name": "Mammals",
         "description": "Vertebrates that give birth to live young",
         "url": "http://raw.densitydesign.org/",
-        "free": true
+        "free": true,
+	       "children": [ 
+               {
+           "name": "Rat",
+           "description": "" ,
+           "free": true
+               },
+              {
+           "name": "Bear",
+           "description": "" ,
+           "free": true
+               },
+                  {
+           "name": "Monkey",
+           "description":  "",
+           "free": true
+               },
+                  {
+           "name": "Horse",
+           "description":""  ,
+           "free": true
+               },
+                  {
+           "name": "Elephant",
+           "description": "" ,
+           "free": true
+               },
+               {
+                   "name": "Lion",
+                   "description": "",
+                   "free": true
+               }
+          
+           ]
        },
 	   {
         "name": "Fish",
         "description": "Vertebrates that breathe through gills",
         "url": "http://raw.densitydesign.org/",
-        "free": true
+        "free": true,
+		   "children": [ 
+               {
+           "name": "Goldfish",
+           "description": "" ,
+           "free": true
+               },
+              {
+           "name": "Megaladon",
+           "description": "" ,
+           "free": true
+               },
+                  {
+           "name": "Whale",
+           "description":  "",
+           "free": true
+               },
+                  {
+           "name": "Salmon",
+           "description":""  ,
+           "free": true
+               },
+                  {
+           "name": "Swordfish",
+           "description": "" ,
+           "free": true
+               }
+          
+           ]
        }
       ]
      },
@@ -51,43 +192,158 @@
         "name": "Protozoa",
         "description": "The single-celled invertebrates",
         "url": "http://www.tableausoftware.com/products/desktop",
-		"free": true
+		"free": true,
+	       "children": [
+               {
+                   "name": " Amoebozoa",
+                   "free": true
+               },
+               {
+                   "name": "Mycetozoa",
+                   "free": true
+               },
+               {
+                   "name": "Sarcodina",
+                   "free": true
+               }
+           ]
        },
        {
         "name": "Flatworms",
         "description": "Soft-bodied Invertebrates that donot have specialized circulatory and respiratory organs",
         "url": "http://www.tableausoftware.com/products/public",
-        "free": true
+        "free": true,
+	       "children": [
+               
+               {
+                   "name": "Tapeworms",
+                   "free": true
+               },
+               {
+                   "name": "Turbellaria",
+                   "free": true
+               },
+               {
+                   "name": "Monogenea",
+                   "free": true
+               }
+           ]
        },
 	   {
         "name": "Coelenterates",
         "description": "Aquatic Invertebrates with radially symmetrical bodyform",
         "url": "http://www.tableausoftware.com/products/desktop",
-		"free": true
+		"free": true,
+		   "children": [
+               {
+                   "name": "Immortal Jelyfish",
+                   "free": true
+               },
+               {
+                   "name": "Moon Jelly",
+                   "free": true
+               },
+               {
+                   "name": "Lion's mane Jelly",
+                   "free": true
+               }
+           ]
        },
 	   {
         "name": "Annelid worms",
         "description": "Ringed worms and segmented worms",
         "url": "http://www.tableausoftware.com/products/desktop",
-		"free": true
+		"free": true,
+		   "children": [
+               {
+                   "name": "Leech",
+                   "free": true
+               },
+               {
+                   "name": "Oligochaeta",
+                   "free": true
+               },
+               {
+                   "name": "Polychaete",
+                   "free": true
+               }
+           ]
        },
 	   {
         "name": "Molluscs",
         "description": "Marine invertebrates with significant cavity for breathing and excretion",
         "url": "http://www.tableausoftware.com/products/desktop",
-		"free": true
+		"free": true,
+		    "children": [
+               {
+                   "name": "Squid",
+                   "free": true
+               },
+               {
+                   "name": "Octopus",
+                   "free": true
+               },
+               {
+                   "name": "Cuttle",
+                   "free": true
+               }
+           ]
        },
 	   {
         "name": "Echinoderms",
         "description": "Marine Invertebrates with radial symmetrical structure",
         "url": "http://www.tableausoftware.com/products/desktop",
-		"free": true
+		"free": true,
+		     "children": [
+               {
+                   "name": "Starfish",
+                   "free": true
+               },
+               {
+                   "name": "Sea Cucumber",
+                   "free": true
+               },
+               {
+                   "name": "Sea Urchin",
+                   "free": true
+               },
+               {
+                   "name": "Brittle star",
+                   "free": true
+               }
+           ]
        },
 	   {
         "name": "Arthropods",
         "description": "Invertebrates that have exoskeleton",
         "url": "http://www.tableausoftware.com/products/desktop",
-		"free": true
+		"free": true,
+		   "children": 
+           [{
+                   "name": "Insects",
+                   "free": true
+               },
+            {
+                   "name": "Scorpion",
+                   "free": true
+               },
+            {
+                   "name": "Crab",
+                   "free": true
+               },
+            {
+                   "name": "Termite",
+                   "free": true
+               },
+            {
+                   "name": "Butterfly",
+                   "free": true
+               },
+            {
+                   "name": "Moths",
+                   "free": true
+               }
+            ]
        }
       ]
      }
@@ -131,13 +387,35 @@
        {
         "name": "Bryophyta",
         "description": "Non-vascular plants",
-        "free": true
-       },
+        "free": true,
+           "children": [
+               {
+                   "name": " Pincushion Moss",
+                   "free": true
+               },
+               {
+                   "name": "Java Moss",
+                   "free": true
+               }
+           ]       },
 	   {
         "name": "Pteridophyta",
         "description": "Vascular plants that reproduce via spores",
-        "free": true
-       }
+        "free": true,
+           "children": [
+              {
+                   "name": "Salvinia minima",
+                   "free": true
+               },
+               {
+                   "name": "Marattiidea",
+                   "free": true
+               },
+               {
+                   "name": "Marsilea crenata",
+                   "free": true
+               }
+           ]       }
       ]
      },
      {
@@ -148,8 +426,34 @@
        {
         "name": "Gymnospermae",
         "description": "Plants with cones as reproductive organs",
-        "free": true
-       },
+        "free": true,
+           "children":[
+                 {
+           "name": "Pine",
+           "description":""  ,
+           "free": true
+               },
+                 {
+           "name": "Palm",
+           "description":""  ,
+           "free": true
+               },
+                 {
+           "name": "Cedar",
+           "description":""  ,
+           "free": true
+               },
+                 {
+           "name": "Cypress",
+           "description":""  ,
+           "free": true
+               },
+                 {
+           "name": "Juniper",
+           "description":""  ,
+           "free": true
+               }
+           ]       },
        {
         "name": "Angiospermae",
         "description": "Plants with flowers as reproductive organs",
@@ -159,13 +463,53 @@
           "name": "Monocot",
           "description": "Flowering plants whose seed contain one embryonic leaf",
           "url": "http://shiny.rstudio.com/",
-          "free": true
-         },
+          "free": true,
+             "children": [
+                 
+                   {
+           "name": "Banana",
+           "description":""  ,
+           "free": true
+               },
+                   {
+           "name": "Irises",
+           "description":""  ,
+           "free": true
+               },
+                   {
+           "name": "Daffodil",
+           "description":""  ,
+           "free": true
+               },
+                   {
+           "name": "Dracaena",
+           "description":""  ,
+           "free": true
+               }
+             ]         },
 		 {
           "name": "Dicot",
           "description": "Flowering plants whose seeds contain two embryonic leaves",
           "url": "http://shiny.rstudio.com/",
-          "free": true
+          "free": true,
+             "children": [
+             
+               {
+           "name": "Campanulales",
+           "description":""  ,
+           "free": true
+               },
+           {
+           "name": "Urticales",
+           "description":""  ,
+           "free": true
+               },
+                   {
+           "name": "Santalales",
+           "description":""  ,
+           "free": true
+               }
+             ]
          }
         ]
        }
