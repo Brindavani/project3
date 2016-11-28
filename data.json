@@ -117,6 +117,7 @@
                {
            "name": "Rat",
            "description": "" ,
+		"eats": ["Insects","Moths"],       
            "free": true
                },
               {
@@ -127,6 +128,7 @@
                   {
            "name": "Monkey",
            "description":  "",
+		"eats": ["Scorpion","Termite"],	  
            "free": true
                },
                   {
