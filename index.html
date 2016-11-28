@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <link rel='shortcut icon' href='nature.ico' type='image/x-icon'/ >
+  <link rel='shortcut icon' href='Images/nature.ico' type='image/x-icon'/ >
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <link type="text/css" rel="stylesheet" href="style.css"/>
 	<script src="https://d3js.org/d3.v3.min.js"></script>
@@ -44,25 +44,14 @@ d3.json("data.json", function(json) {
       toggle(d);
     }
   }
-  // Initialize the display to show a few nodes.
-  // root.children.forEach(toggleAll);
-  // toggle(root.children[1]);
-  // toggle(root.children[1].children[2]);
-  // toggle(root.children[9]);
-  // toggle(root.children[9].children[0]);
   update(root);
 });
 function update(source) {
   var duration = d3.event && d3.event.altKey ? 5000 : 500;
-  // Compute the new tree layout.
   var nodes = tree.nodes(root).reverse();
-  // Normalize for fixed-depth.
   nodes.forEach(function(d) { d.y = d.depth * 180; });
-  // Update the nodes…
   var node = vis.selectAll("g.node")
       .data(nodes, function(d) { return d.id || (d.id = ++i); });
-	//  console.log(nodes);
-  // Enter any new nodes at the parent's previous position.
   var nodeEnter = node.enter().append("svg:g")
       .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
@@ -75,7 +64,7 @@ function update(source) {
 	  var child=d.eats;
 	  var curveData=[];
 	  var sourcenode={x:d.y+5,y:d.x};
-	  
+	  var pi = Math.PI;
 		nodes.forEach(function(d2) {
 		if(child!=undefined) {
 			for(var i=0;i<child.length;i++) {
@@ -87,32 +76,76 @@ function update(source) {
 		});
 		
 			for(var j=0;j<child.length;j++) {
+			
 			var edge = d3.select(".svg2").append('g');
 			var diagonal2 = d3.svg.diagonal()
 		.source(function() {return {"x":sourcenode.y, "y":sourcenode.x}; })            
-		.target(function(d1) {
-		return {"x":d1.y, "y":d1.x}; })
+		.target(function(d1) {return {"x":d1.y, "y":d1.x}; })
 		.projection(function(d1) { return [d1.y, d1.x]; });
+   
+   
+		
+		var arc = d3.svg.arc()
+		.innerRadius(function(d1){
+		var x1=d1.x;
+		var x2=sourcenode.x;
+		var y1=d1.y;
+		var y2=sourcenode.y;
+		var radius=(Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2)))/2;
+		return radius;
+		})
+		.outerRadius(function(d1){
+		var x1=d1.x;
+		var x2=sourcenode.x;
+		var y1=d1.y;
+		var y2=sourcenode.y;
+		var radius=(Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2)))/2;
+		return radius;
+		})
+		
+		.startAngle(0 * (pi/180)) //converting from degs to radians
+		.endAngle(180 * (pi/180)); //just radians
+    
    
 		d3.select(".svg2").select("g")
 		.datum(curveData[j])
 		.append("path")
       .attr("class", "relations")
-      .attr("d", diagonal2)
-      .attr("stroke", "#999")
+      .attr("d", arc)
+	  .attr("transform", function(d1){
+	  var xcor=(sourcenode.x+d1.x)/2;
+	  var ycor=(sourcenode.y+d1.y)/2;
+	  return "translate("+xcor+","+ycor+")";
+	  })
+      .attr("stroke", function(d1) {
+	  var gradient=d3.select(".svg2")
+	.append("defs")
+	.append("linearGradient")
+    .attr("id", "gradient")
+    .attr("x1", "0%")
+    .attr("y1", "100%")
+    .attr("x2", "0%")
+    .attr("y2", "0%")
+    .attr("spreadMethod", "pad");	  
+
+	gradient.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", "#7dca5c")
+    .attr("stop-opacity", 1);	
+	
+	gradient.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", "#DC143C")
+    .attr("stop-opacity", 1);
+	
+	  return "url(#gradient)";
+	  })
+	  .style("opacity",0.5)
+	//	.style("z-index","0")
         .attr("stroke-width", 1)
         .attr("fill", "none");
-		}
-	/*	
-		function shapedEdge(d1,i) {
-        var draw = d3.svg.line().interpolate("basis");
-        var sw = linkScale(10);
-        var midX = (d1.source.x + d1.target.x) / 2;
-        var midY = d1.source.x - d1.target.x - sw;
-        var midY2 = d1.source.x - d1.target.x + sw;
-        return draw([[d1.source.x,0],[midX,midY],[d1.target.x + (sw*1.5),0],[d1.target.x - (sw*1.5),0],[midX,midY2],[d1.source.x,0]])
-      }
-	*/	
+		
+		}	
 		}
 	});
 	  
@@ -126,6 +159,7 @@ function update(source) {
       .attr("dy", ".35em")
       .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
       .text(function(d) { return d.name; })
+	//  .style("z-index","1")
 	  .attr("class","texts")
       .style('fill', function(d) {
         return d.free ? 'black' : '#999';
