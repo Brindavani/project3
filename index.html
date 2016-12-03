@@ -3,236 +3,185 @@
   <head>
   <link rel='shortcut icon' href='Images/nature.ico' type='image/x-icon'/ >
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <link type="text/css" rel="stylesheet" href="style.css"/>
 	<script src="https://d3js.org/d3.v3.min.js"></script>
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      ga('create', 'UA-55956641-1', 'auto');
-      ga('send', 'pageview');
-    </script>
+	<style>
+	.svg2 {
+	margin-left:50px;
+	margin-top:50px;
+	}
+	</style>
   </head>
   <body>
-    <div id="body">
-      
-    </div>
-    <script type="text/javascript">
-var m = [20, 120, 20, 20],
-    w = 1280 - m[1] - m[3],
-    h = 500 - m[0] - m[2],
-    i = 0,
-    root;
-var tree = d3.layout.tree()
-    .size([h, w]);
-var diagonal = d3.svg.diagonal()
-    .projection(function(d) { return [d.y, d.x]; });
-var vis = d3.select("#body").append("svg:svg")
-	.attr("class","svg2")
-    .attr("width", w + m[1] + m[3])
-    .attr("height", h + m[0] + m[2])
-  .append("svg:g")
-  .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
-d3.json("data.json", function(json) {
-  root = json;
-  root.x0 = h / 2;
-  root.y0 = 0;
-  function toggleAll(d) {
-    if (d.children) {
-      d.children.forEach(toggleAll);
-      toggle(d);
-    }
-  }
-  update(root);
-});
-function update(source) {
-  var duration = d3.event && d3.event.altKey ? 5000 : 500;
-  var nodes = tree.nodes(root).reverse();
-  nodes.forEach(function(d) { d.y = d.depth * 180; });
-  var node = vis.selectAll("g.node")
-      .data(nodes, function(d) { return d.id || (d.id = ++i); });
-  var nodeEnter = node.enter().append("svg:g")
-      .attr("class", "node")
-      .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
-      .on("click", function(d) {
-	  toggle(d);
-	  update(d); 
-	  })
-	  .on("dblclick", function(d) {
-	  if(!d.children) {
-	  var child=d.eats;
-	  var curveData=[];
-	  var sourcenode={x:d.y+5,y:d.x};
-	  var pi = Math.PI;
-		nodes.forEach(function(d2) {
-		if(child!=undefined) {
-			for(var i=0;i<child.length;i++) {
-				if(d2.name==child[i]){
-					curveData[i] = {x:d2.y+5,  y:d2.x};
-				}
-			}
-			}
-		});
-		
-			for(var j=0;j<child.length;j++) {
-			
-			var edge = d3.select(".svg2").append('g');
-			var diagonal2 = d3.svg.diagonal()
-		.source(function() {return {"x":sourcenode.y, "y":sourcenode.x}; })            
-		.target(function(d1) {return {"x":d1.y, "y":d1.x}; })
-		.projection(function(d1) { return [d1.y, d1.x]; });
-   
-   
-		
-		var arc = d3.svg.arc()
-		.innerRadius(function(d1){
-		var x1=d1.x;
-		var x2=sourcenode.x;
-		var y1=d1.y;
-		var y2=sourcenode.y;
-		var radius=(Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2)))/2;
-		return radius;
-		})
-		.outerRadius(function(d1){
-		var x1=d1.x;
-		var x2=sourcenode.x;
-		var y1=d1.y;
-		var y2=sourcenode.y;
-		var radius=(Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2)))/2;
-		return radius;
-		})
-		
-		.startAngle(0 * (pi/180)) //converting from degs to radians
-		.endAngle(180 * (pi/180)); //just radians
-    
-   
-		d3.select(".svg2").select("g")
-		.datum(curveData[j])
-		.append("path")
-      .attr("class", "relations")
-      .attr("d", arc)
-	  .attr("transform", function(d1){
-	  var xcor=(sourcenode.x+d1.x)/2;
-	  var ycor=(sourcenode.y+d1.y)/2;
-	  return "translate("+xcor+","+ycor+")";
-	  })
-      .attr("stroke", function(d1) {
-	  var gradient=d3.select(".svg2")
-	.append("defs")
-	.append("linearGradient")
-    .attr("id", "gradient")
-    .attr("x1", "0%")
-    .attr("y1", "100%")
-    .attr("x2", "0%")
-    .attr("y2", "0%")
-    .attr("spreadMethod", "pad");	  
-
-	gradient.append("stop")
-    .attr("offset", "0%")
-    .attr("stop-color", "#7dca5c")
-    .attr("stop-opacity", 1);	
-	
-	gradient.append("stop")
-    .attr("offset", "100%")
-    .attr("stop-color", "#DC143C")
-    .attr("stop-opacity", 1);
-	
-	  return "url(#gradient)";
-	  })
-	  .style("opacity",0.5)
-	//	.style("z-index","0")
-        .attr("stroke-width", 1)
-        .attr("fill", "none");
-		
-		}	
-		}
-	});
-	  
-	  
-  nodeEnter.append("svg:circle")
-      .attr("r", 1e-6)
-      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
-  nodeEnter.append('a')
-      .append("svg:text")
-      .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
-      .attr("dy", ".35em")
-      .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
-      .text(function(d) { return d.name; })
-	//  .style("z-index","1")
-	  .attr("class","texts")
-      .style('fill', function(d) {
-        return d.free ? 'black' : '#999';
-      })
-      .style("fill-opacity", 1e-6);
-  nodeEnter.append("svg:title")
-    .text(function(d) {
-      return d.description;
-    })
-	.attr("class","texts");
-  // Transition nodes to their new position.
-  var nodeUpdate = node.transition()
-      .duration(duration)
-      .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
-  nodeUpdate.select("circle")
-      .attr("r", 6)
-      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
-  nodeUpdate.select("text")
-      .style("fill-opacity", 1);
-  // Transition exiting nodes to the parent's new position.
-  var nodeExit = node.exit().transition()
-      .duration(duration)
-      .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
-      .remove();
-  nodeExit.select("circle")
-      .attr("r", 1e-6);
-  nodeExit.select("text")
-      .style("fill-opacity", 1e-6);
-  // Update the links…
-  var link = vis.selectAll("path.link")
-      .data(tree.links(nodes), function(d) { return d.target.id; });
-  // Enter any new links at the parent's previous position.
-  link.enter().insert("svg:path", "g")
-      .attr("class", "link")
-      .attr("d", function(d) {
-        var o = {x: source.x0, y: source.y0};
-        return diagonal({source: o, target: o});
-      })
-    .transition()
-      .duration(duration)
-      .attr("d", diagonal);
-	  
-		
-		
-		
-  // Transition links to their new position.
-  link.transition()
-      .duration(duration)
-      .attr("d", diagonal);
-  // Transition exiting nodes to the parent's new position.
-  link.exit().transition()
-      .duration(duration)
-      .attr("d", function(d) {
-        var o = {x: source.x, y: source.y};
-        return diagonal({source: o, target: o});
-      })
-      .remove();
-  // Stash the old positions for transition.
-  nodes.forEach(function(d) {
-    d.x0 = d.x;
-    d.y0 = d.y;
+  
+  <script>
+  var width2=600;
+  var height2=400;
+  var color2=["#ddd","#bbbbbb","#999999","#666666","#4d4d4d","#8382BD"];
+  var stackheight=height2/6;
+  var svg2=d3.select("body").append("svg").attr("class","svg2").attr("width",width2).attr("height",height2);//.style("border","1px solid #000");
+  var jsondata;
+  
+  
+  d3.json("data.json", function(json) {
+  jsondata=json;
   });
+  
+  svg2.append("rect")
+	.attr("width",width2)
+	.attr("height",stackheight)
+	.attr("y",0)
+	.style("fill",function() {
+	return color2[0];
+	})
+	.attr("stroke-width",1)
+	.attr("stroke","#ccc")
+	.on("mouseover",function(){
+	//tooltip here - use jsondata
+	});
+	
+	
+ function createrect(width,level,position,ifchild) {
+ 
+ svg2.append("rect")
+	.attr("class","stacks")
+	.attr("width",width)
+	.attr("height",stackheight)
+	.attr("x",position)
+	.attr("y",stackheight*(level+1))
+	.style("fill",function() {
+	if(ifchild==true)
+	return color2[level+1];
+	else
+	return "#8382BD";
+	})
+	.attr("stroke-width",1)
+	.attr("stroke","#ccc");
+	
+ }
+ 
+ var lvltotal=[0,0,0,0,0];
+  d3.json("data.json", function(json) {
+  var leafwidth=width2/json.leafs;
+  console.log(json);
+  var lvl=[0,0,0,0,0];
+for(var j=0;j<json.children.length;j++){
+lvl[0]=lvl[0]+1;
+lvltotal[0]=lvltotal[0]+json.children[j].leafs;
+for(var k=0;k<json.children[j].children.length;k++){
+lvl[1]=lvl[1]+1;
+lvltotal[1]=lvltotal[1]+json.children[j].children[k].leafs;
+for(var l=0;l<json.children[j].children[k].children.length;l++){
+lvl[2]=lvl[2]+1;
+lvltotal[2]=lvltotal[2]+json.children[j].children[k].children[l].leafs;
+for(var m=0;m<json.children[j].children[k].children[l].children.length;m++){
+lvl[3]=lvl[3]+1;
+lvltotal[3]=lvltotal[3]+json.children[j].children[k].children[l].children[m].leafs;
+if(json.children[j].children[k].children[l].children[m].children){
+for(var n=0;n<json.children[j].children[k].children[l].children[m].children.length;n++){
+lvl[4]=lvl[4]+1;
+lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].children[n].leafs;
 }
-// Toggle children.
-function toggle(d) {
-  if (d.children) {
-    d._children = d.children;
-    d.children = null;
-  } else {
-    d.children = d._children;
-    d._children = null;
+}
+}
+}
+}
+}
+
+  console.log(lvl[0]+"-"+lvl[1]+"-"+lvl[2]+"-"+lvl[3]+"-"+lvl[4]);
+  
+  if(json.children) {
+  json.xpos=0;
+  json.width=width2;
+  var lvl0position=0;
+  for(var j=0;j<lvl[0];j++){
+  var lvl0width=json.children[j].leafs/lvltotal[j]*width2;
+  var lvl0level=0;
+  if(j!=0)
+  var lvl0position=lvl0position+((json.children[j-1].leafs/lvltotal[j-1])*width2);
+  var ifchild=json.children[j].children ? true : false;
+  json.children[j].xpos=lvl0position;
+  json.children[j].width=lvl0width;
+  createrect(lvl0width,lvl0level,lvl0position,ifchild);
+  
+	var sum=0;
+    for(var k=0;k<json.children[j].children.length;k++) {
+	sum=sum+json.children[j].children[k].leafs;
+	}
+	
+	var lvl1position=json.children[j].xpos;
+	for(var k=0;k<json.children[j].children.length;k++){
+	var lvl1width=json.children[j].children[k].leafs/sum*json.children[j].width;
+	json.children[j].children[k].width=lvl1width;
+	var lvl1level=1;
+	if(k!=0)
+	var lvl1position=(json.children[j].children[k-1].width+json.children[j].children[k-1].xpos);
+	json.children[j].children[k].xpos=lvl1position;
+	var ifchild=json.children[j].children[k].children ? true : false;
+	createrect(lvl1width,lvl1level,lvl1position,ifchild);
+	
+	
+	var sum1=0;
+    for(var l=0;l<json.children[j].children[k].children.length;l++) {
+	sum1=sum1+json.children[j].children[k].children[l].leafs;
+	}
+	
+	var lvl2position=json.children[j].children[k].xpos;
+	for(var l=0;l<json.children[j].children[k].children.length;l++){
+	var lvl2width=json.children[j].children[k].children[l].leafs/sum1*json.children[j].children[k].width;
+	json.children[j].children[k].children[l].width=lvl2width;
+	var lvl2level=2;
+	if(l!=0)
+	var lvl2position=(json.children[j].children[k].children[l-1].width+json.children[j].children[k].children[l-1].xpos);
+	json.children[j].children[k].children[l].xpos=lvl2position;
+	var ifchild=json.children[j].children[k].children[l].children ? true : false;
+	createrect(lvl2width,lvl2level,lvl2position,ifchild);
+	
+	
+	var sum2=0;
+    for(var m=0;m<json.children[j].children[k].children[l].children.length;m++) {
+	sum2=sum2+json.children[j].children[k].children[l].children[m].leafs;
+	}
+	
+	var lvl3position=json.children[j].children[k].children[l].xpos;
+	for(var m=0;m<json.children[j].children[k].children[l].children.length;m++){
+	if(json.children[j].children[k].children[l].children[m].leafs)
+	var lvl3width=json.children[j].children[k].children[l].children[m].leafs/sum2*json.children[j].children[k].children[l].width;
+	else
+	var lvl3width=leafwidth;
+	json.children[j].children[k].children[l].children[m].width=lvl3width;
+	var lvl3level=3;
+	if(m!=0)
+	var lvl3position=(json.children[j].children[k].children[l].children[m-1].width+json.children[j].children[k].children[l].children[m-1].xpos);
+	json.children[j].children[k].children[l].children[m].xpos=lvl3position;
+	var ifchild=json.children[j].children[k].children[l].children[m].children ? true : false;
+	createrect(lvl3width,lvl3level,lvl3position,ifchild);
+	
+	
+	
+    if(json.children[j].children[k].children[l].children[m].children){
+	var lvl4position=json.children[j].children[k].children[l].children[m].xpos;
+	for(var p=0;p<json.children[j].children[k].children[l].children[m].children.length;p++) {
+	var lvl4width=leafwidth;
+	json.children[j].children[k].children[l].children[m].children[p].width=lvl4width;
+	var lvl4level=4;
+	if(p!=0)
+	var lvl4position=json.children[j].children[k].children[l].children[m].children[p-1].xpos+json.children[j].children[k].children[l].children[m].children[p-1].width;
+	json.children[j].children[k].children[l].children[m].children[p].xpos=lvl4position;
+	var ifchild=json.children[j].children[k].children[l].children[m].children[p].children ? true : false;
+	createrect(lvl4width,lvl4level,lvl4position,ifchild);
+	}
+	}
+	
+	
+	}
+	}
+	}
   }
-}
-    </script>
+  }
+});
+
+
+  </script>
+  
   </body>
 </html>
