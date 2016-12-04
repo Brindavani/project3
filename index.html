@@ -40,17 +40,17 @@
 	});
 	
 	
- function createrect(width,level,position,ifchild) {
+ function createrect(widthc,levelc,positionc,ifchildc) {
  
  svg2.append("rect")
 	.attr("class","stacks")
-	.attr("width",width)
+	.attr("width",widthc)
 	.attr("height",stackheight)
-	.attr("x",position)
-	.attr("y",stackheight*(level+1))
+	.attr("x",positionc)
+	.attr("y",stackheight*(levelc+1))
 	.style("fill",function() {
-	if(ifchild==true)
-	return color2[level+1];
+	if(ifchildc==true)
+	return color2[levelc+1];
 	else
 	return "#8382BD";
 	})
@@ -103,6 +103,7 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
   json.children[j].width=lvl0width;
   createrect(lvl0width,lvl0level,lvl0position,ifchild);
   
+	if(json.children[j].children) {
 	var sum=0;
     for(var k=0;k<json.children[j].children.length;k++) {
 	sum=sum+json.children[j].children[k].leafs;
@@ -119,7 +120,7 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 	var ifchild=json.children[j].children[k].children ? true : false;
 	createrect(lvl1width,lvl1level,lvl1position,ifchild);
 	
-	
+	if(json.children[j].children[k].children) {
 	var sum1=0;
     for(var l=0;l<json.children[j].children[k].children.length;l++) {
 	sum1=sum1+json.children[j].children[k].children[l].leafs;
@@ -156,6 +157,7 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 	var ifchild=json.children[j].children[k].children[l].children[m].children ? true : false;
 	createrect(lvl3width,lvl3level,lvl3position,ifchild);
 	
+	//level 4 starts here
 	
 	
     if(json.children[j].children[k].children[l].children[m].children){
@@ -173,6 +175,9 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 	}
 	
 	
+	//level 4 ends here
+	}
+	}
 	}
 	}
 	}
