@@ -136,7 +136,7 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 	var ifchild=json.children[j].children[k].children[l].children ? true : false;
 	createrect(lvl2width,lvl2level,lvl2position,ifchild);
 	
-	
+	if(json.children[j].children[k].children[l].children) {
 	var sum2=0;
     for(var m=0;m<json.children[j].children[k].children[l].children.length;m++) {
 	sum2=sum2+json.children[j].children[k].children[l].children[m].leafs;
@@ -173,6 +173,7 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 	}
 	
 	
+	}
 	}
 	}
 	}
