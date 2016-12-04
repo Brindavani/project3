@@ -18,7 +18,7 @@
   var height2=400;
   var color2=["#ddd","#bbbbbb","#999999","#666666","#4d4d4d","#8382BD"];
   var stackheight=height2/6;
-  var svg2=d3.select("body").append("svg").attr("class","svg2").attr("width",width2).attr("height",height2);//.style("border","1px solid #000");
+  var svg2=d3.select("body").append("svg").attr("class","svg2").attr("width",width2).attr("height",height2);
   var jsondata;
   
   
@@ -36,7 +36,7 @@
 	.attr("stroke-width",1)
 	.attr("stroke","#ccc")
 	.on("mouseover",function(){
-	//tooltip here - use jsondata
+	/*tooltip here - use jsondata */
 	});
 	
 	
@@ -61,7 +61,7 @@
  
  var lvltotal=[0,0,0,0,0];
   d3.json("data.json", function(json) {
-  var leafwidth=width2/json.leafs;
+  var leafwidth=width2/Number(json.leafs);
   console.log(json);
   var lvl=[0,0,0,0,0];
 for(var j=0;j<json.children.length;j++){
@@ -94,10 +94,10 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
   json.width=width2;
   var lvl0position=0;
   for(var j=0;j<lvl[0];j++){
-  var lvl0width=json.children[j].leafs/lvltotal[j]*width2;
+  var lvl0width=Number(json.children[j].leafs/lvltotal[j]*width2);
   var lvl0level=0;
   if(j!=0)
-  var lvl0position=lvl0position+((json.children[j-1].leafs/lvltotal[j-1])*width2);
+  var lvl0position=Number(lvl0position+((Number(json.children[j-1].leafs)/lvltotal[j-1])*width2));
   var ifchild=json.children[j].children ? true : false;
   json.children[j].xpos=lvl0position;
   json.children[j].width=lvl0width;
@@ -106,16 +106,16 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 	if(json.children[j].children) {
 	var sum=0;
     for(var k=0;k<json.children[j].children.length;k++) {
-	sum=sum+json.children[j].children[k].leafs;
+	sum=sum+Number(json.children[j].children[k].leafs);
 	}
 	
-	var lvl1position=json.children[j].xpos;
+	var lvl1position=Number(json.children[j].xpos);
 	for(var k=0;k<json.children[j].children.length;k++){
-	var lvl1width=json.children[j].children[k].leafs/sum*json.children[j].width;
+	var lvl1width=Number((Number(json.children[j].children[k].leafs)/sum)*Number(json.children[j].width));
 	json.children[j].children[k].width=lvl1width;
 	var lvl1level=1;
 	if(k!=0)
-	var lvl1position=(json.children[j].children[k-1].width+json.children[j].children[k-1].xpos);
+	var lvl1position=Number((Number(json.children[j].children[k-1].width)+Number(json.children[j].children[k-1].xpos)));
 	json.children[j].children[k].xpos=lvl1position;
 	var ifchild=json.children[j].children[k].children ? true : false;
 	createrect(lvl1width,lvl1level,lvl1position,ifchild);
@@ -123,16 +123,16 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 	if(json.children[j].children[k].children) {
 	var sum1=0;
     for(var l=0;l<json.children[j].children[k].children.length;l++) {
-	sum1=sum1+json.children[j].children[k].children[l].leafs;
+	sum1=sum1+Number(json.children[j].children[k].children[l].leafs);
 	}
 	
-	var lvl2position=json.children[j].children[k].xpos;
+	var lvl2position=Number(json.children[j].children[k].xpos);
 	for(var l=0;l<json.children[j].children[k].children.length;l++){
-	var lvl2width=json.children[j].children[k].children[l].leafs/sum1*json.children[j].children[k].width;
+	var lvl2width=Number((Number(json.children[j].children[k].children[l].leafs)/sum1)*Number(json.children[j].children[k].width));
 	json.children[j].children[k].children[l].width=lvl2width;
 	var lvl2level=2;
 	if(l!=0)
-	var lvl2position=(json.children[j].children[k].children[l-1].width+json.children[j].children[k].children[l-1].xpos);
+	var lvl2position=Number(Number(json.children[j].children[k].children[l-1].width)+Number(json.children[j].children[k].children[l-1].xpos));
 	json.children[j].children[k].children[l].xpos=lvl2position;
 	var ifchild=json.children[j].children[k].children[l].children ? true : false;
 	createrect(lvl2width,lvl2level,lvl2position,ifchild);
@@ -140,34 +140,33 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 	if(json.children[j].children[k].children[l].children) {
 	var sum2=0;
     for(var m=0;m<json.children[j].children[k].children[l].children.length;m++) {
-	sum2=sum2+json.children[j].children[k].children[l].children[m].leafs;
+	sum2=sum2+Number(json.children[j].children[k].children[l].children[m].leafs);
 	}
 	
-	var lvl3position=json.children[j].children[k].children[l].xpos;
+	var lvl3position=Number(json.children[j].children[k].children[l].xpos);
 	for(var m=0;m<json.children[j].children[k].children[l].children.length;m++){
 	if(json.children[j].children[k].children[l].children[m].leafs)
-	var lvl3width=json.children[j].children[k].children[l].children[m].leafs/sum2*json.children[j].children[k].children[l].width;
+	var lvl3width=Number(Number(json.children[j].children[k].children[l].children[m].leafs)/sum2*Number(json.children[j].children[k].children[l].width));
 	else
 	var lvl3width=leafwidth;
 	json.children[j].children[k].children[l].children[m].width=lvl3width;
 	var lvl3level=3;
 	if(m!=0)
-	var lvl3position=(json.children[j].children[k].children[l].children[m-1].width+json.children[j].children[k].children[l].children[m-1].xpos);
+	var lvl3position=Number(Number(json.children[j].children[k].children[l].children[m-1].width)+Number(json.children[j].children[k].children[l].children[m-1].xpos));
 	json.children[j].children[k].children[l].children[m].xpos=lvl3position;
 	var ifchild=json.children[j].children[k].children[l].children[m].children ? true : false;
 	createrect(lvl3width,lvl3level,lvl3position,ifchild);
 	
-	//level 4 starts here
 	
 	
     if(json.children[j].children[k].children[l].children[m].children){
-	var lvl4position=json.children[j].children[k].children[l].children[m].xpos;
+	var lvl4position=Number(json.children[j].children[k].children[l].children[m].xpos);
 	for(var p=0;p<json.children[j].children[k].children[l].children[m].children.length;p++) {
 	var lvl4width=leafwidth;
 	json.children[j].children[k].children[l].children[m].children[p].width=lvl4width;
 	var lvl4level=4;
 	if(p!=0)
-	var lvl4position=json.children[j].children[k].children[l].children[m].children[p-1].xpos+json.children[j].children[k].children[l].children[m].children[p-1].width;
+	var lvl4position=Number(Number(json.children[j].children[k].children[l].children[m].children[p-1].xpos)+Number(json.children[j].children[k].children[l].children[m].children[p-1].width));
 	json.children[j].children[k].children[l].children[m].children[p].xpos=lvl4position;
 	var ifchild=json.children[j].children[k].children[l].children[m].children[p].children ? true : false;
 	createrect(lvl4width,lvl4level,lvl4position,ifchild);
@@ -175,7 +174,6 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 	}
 	
 	
-	//level 4 ends here
 	}
 	}
 	}
