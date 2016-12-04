@@ -1,18 +1,22 @@
 {
  "name": "",
+ "leafs": 95,
  "children": [
    {
     "name": "Fauna",
+	"leafs": 50,
     "free": true,
     "description": "Animal life of any particular region or time",
     "children": [
      {
       "name": "Vertebrates",
+	  "leafs": 25,
       "description": "Oraganisms that have vertebral column",
       "free": true,
       "children": [
        {
         "name": "Reptiles",
+		"leafs": 5,
         "description": "Vertebrates that have four limbs",
         "url": "https://datawrapper.de/",
         "free": true,
@@ -47,6 +51,7 @@
        },
        {
         "name": "Amphibians",
+		"leafs": 4,
         "description": "Vertebrates that can live on both land and water",
         "free": true,
 	       "children": [ 
@@ -76,6 +81,7 @@
        },
        {
         "name": "Birds",
+		"leafs": 5,
         "description": "Vertebrates characterised by wings,beaked-jaws",
         "url": "https://plot.ly/",
         "free": true,
@@ -110,6 +116,7 @@
        },
        {
         "name": "Mammals",
+		"leafs": 6,
         "description": "Vertebrates that give birth to live young",
         "url": "http://raw.densitydesign.org/",
         "free": true,
@@ -117,7 +124,7 @@
                {
            "name": "Rat",
            "description": "" ,
-		"eats": ["Insects","Moths"],       
+		   "eats": ["Insects","Moths"],
            "free": true
                },
               {
@@ -128,7 +135,7 @@
                   {
            "name": "Monkey",
            "description":  "",
-		"eats": ["Scorpion","Termite"],	  
+		   "eats": ["Scorpion","Termite"],
            "free": true
                },
                   {
@@ -151,6 +158,7 @@
        },
 	   {
         "name": "Fish",
+		"leafs": 5,
         "description": "Vertebrates that breathe through gills",
         "url": "http://raw.densitydesign.org/",
         "free": true,
@@ -187,11 +195,13 @@
      },
      {
       "name": "Invertebrates",
+	  "leafs": 25,
       "description": "Oraganisms that don't have vertebral column",
 	  "free": true,
       "children": [
        {
         "name": "Protozoa",
+		"leafs": 3,
         "description": "The single-celled invertebrates",
         "url": "http://www.tableausoftware.com/products/desktop",
 		"free": true,
@@ -212,6 +222,7 @@
        },
        {
         "name": "Flatworms",
+		"leafs": 3,
         "description": "Soft-bodied Invertebrates that donot have specialized circulatory and respiratory organs",
         "url": "http://www.tableausoftware.com/products/public",
         "free": true,
@@ -233,6 +244,7 @@
        },
 	   {
         "name": "Coelenterates",
+		"leafs": 3,
         "description": "Aquatic Invertebrates with radially symmetrical bodyform",
         "url": "http://www.tableausoftware.com/products/desktop",
 		"free": true,
@@ -253,6 +265,7 @@
        },
 	   {
         "name": "Annelid worms",
+		"leafs": 3,
         "description": "Ringed worms and segmented worms",
         "url": "http://www.tableausoftware.com/products/desktop",
 		"free": true,
@@ -273,6 +286,7 @@
        },
 	   {
         "name": "Molluscs",
+		"leafs": 3,
         "description": "Marine invertebrates with significant cavity for breathing and excretion",
         "url": "http://www.tableausoftware.com/products/desktop",
 		"free": true,
@@ -293,6 +307,7 @@
        },
 	   {
         "name": "Echinoderms",
+		"leafs": 4,
         "description": "Marine Invertebrates with radial symmetrical structure",
         "url": "http://www.tableausoftware.com/products/desktop",
 		"free": true,
@@ -317,6 +332,7 @@
        },
 	   {
         "name": "Arthropods",
+		"leafs": 6,
         "description": "Invertebrates that have exoskeleton",
         "url": "http://www.tableausoftware.com/products/desktop",
 		"free": true,
@@ -353,16 +369,19 @@
    },
    {
     "name": "Flora",
+	"leafs": 20,
     "description": "Plant life occuring in particular region or time",
     "free": true,
     "children": [
      {
       "name": "Cryptogamae",
+	  "leafs": 8,
       "description": "Plants that reproduce by spores",
       "free": true,
       "children": [
        {
         "name": "Thallophyta",
+		"leafs": 3,
         "description": "Plants with undifferentiated body",
         "free": true,
         "children": [
@@ -388,6 +407,7 @@
        },
        {
         "name": "Bryophyta",
+		"leafs": 2,
         "description": "Non-vascular plants",
         "free": true,
            "children": [
@@ -402,6 +422,7 @@
            ]       },
 	   {
         "name": "Pteridophyta",
+		"leafs": 3,
         "description": "Vascular plants that reproduce via spores",
         "free": true,
            "children": [
@@ -422,11 +443,13 @@
      },
      {
       "name": "Phanerogamae",
+	  "leafs": 12,
       "description": "Plants that produce seeds",
       "free": true,
       "children": [
        {
         "name": "Gymnospermae",
+		"leafs": 5,
         "description": "Plants with cones as reproductive organs",
         "free": true,
            "children":[
@@ -458,11 +481,13 @@
            ]       },
        {
         "name": "Angiospermae",
+		"leafs": 7,
         "description": "Plants with flowers as reproductive organs",
         "free": true,
         "children": [
          {
           "name": "Monocot",
+		  "leafs": 4,
           "description": "Flowering plants whose seed contain one embryonic leaf",
           "url": "http://shiny.rstudio.com/",
           "free": true,
@@ -491,6 +516,7 @@
              ]         },
 		 {
           "name": "Dicot",
+		  "leafs": 3,
           "description": "Flowering plants whose seeds contain two embryonic leaves",
           "url": "http://shiny.rstudio.com/",
           "free": true,
