@@ -2,16 +2,15 @@
 
 ## Duties of each student in our group:
 ### Bharath Kumar Kande:
-1.Working on interface Design.
-2.Designing Tree structure for Hierachial data and Network for Non-Hierachial data.
+Mr. Kande has been working on interface Design/Front end.He is also the lead in designing Tree structure for Hierachial data and Network for Non-Hierachial data. He is also working on foodchain representation using Touching Diagram.
+
 
 ### Praneeth Yerramothu: 
-1.Working on data research.
-2.Working on dataset preparation.
+Mr. Yerramothu has taken lead in visualizing network on world map based on the data retrieved. He is also working on data research and dataset preparation.
 
 ### Brindavani Sunkari: 
-1.Working on dataset preparation.
+Ms. Sunkari is currently working on dashboard that represents the frequency of animals in a particular region. She has also been working on dataset preparation.
 
 ### Aravind Kattamuri:
-1.Working on data research.
+Mr. Kattamuri has been working on finding the data of locations of animals. He is also working on data research that involves dealing with visualizing specific entities.
 
