@@ -60,7 +60,7 @@
   var div2 = d3.select("body").append("div").attr("class", "tooltip2").style("opacity", 0);
   var jsondata;
   var foodchain=[];
-  
+  var allstatus=0;
   svg2.append("rect")
 	.attr("width",width2)
 	.attr("height",stackheight)
@@ -74,15 +74,56 @@
 	/*tooltip here - use jsondata */
 	})
 	.on("click", function(){
-	
+	if(allstatus==0) {
+	svg2.selectAll(".foodpaths").remove(); // remove all paths
+	for(var nodnam in foodchain) { // make all rects to default color
+	foodchain[nodnam].status=0;
+	var nodname=nodnam.replace(/ /g,'');
+	var allid="#"+nodname;
+	svg2.select(allid)
+	.style("fill","#61B329");
+	}
+	allstatus=1;
+	}
+	else if(allstatus==1) {
+	for(var node in foodchain){
+	if(foodchain[node].eats.length!=0) {	
+	var startxpos=foodchain[node].xpos+(foodchain[node].width/2);
+	var startypos=foodchain[node].ypos;
+	var startpair=startxpos+","+startypos;
+	for(var j=0;j<foodchain[node].eats.length;j++){
+	var endnode=foodchain[node].eats[j];
+	var endxpos=foodchain[endnode].xpos+(foodchain[endnode].width/2);
+	var endypos=foodchain[endnode].ypos;
+	var endpair=endxpos+","+endypos;
+	var xcor=(startxpos+endxpos)/2;
+	var dist=Math.sqrt(Math.pow(startxpos-endxpos,2)+Math.pow(startypos-endypos,2));
+	var ycor=(2*height2/3)-((height2)*(dist/width2));
+	var pathid=node.replace(/ /g,'')+""+foodchain[node].eats[j].replace(/ /g,'');
+	var pathstr="M "+startpair+" C"+xcor+","+ycor+" "+xcor+","+ycor+" "+endpair;
+	svg2.append("path")
+	.attr("id",pathid)
+	.attr("class","foodpaths")
+	.transition()
+    .duration(2000)
+    .ease("linear")
+	.attr("d", pathstr)
+	.attr("fill","none")
+	.attr("stroke","#B22222")
+	.attr("stroke-width",2);
+	}
+	}
+	}
+	allstatus=0;
+	}
 	});
 	
 	
  function createrect(widthc,levelc,positionc,ifchildc,nodenamec) {
- 
+ var nodeid=nodenamec.replace(/ /g,'');
  svg2.append("rect")
 	.attr("class","stacks")
-	.attr("id",nodenamec)
+	.attr("id",nodeid)
 	.attr("width",widthc)
 	.attr("height",stackheight)
 	.attr("x",positionc)
@@ -110,15 +151,15 @@
 	var xcor=(startxpos+endxpos)/2;
 	var dist=Math.sqrt(Math.pow(startxpos-endxpos,2)+Math.pow(startypos-endypos,2));
 	var ycor=(2*height2/3)-((height2)*(dist/width2));
-	var pathid=nodenamec+""+foodchain[nodenamec].eats[i];
+	var pathid=nodenamec.replace(/ /g,'')+""+foodchain[nodenamec].eats[i].replace(/ /g,'');
 	var pathstr="M "+startpair+" C"+xcor+","+ycor+" "+xcor+","+ycor+" "+endpair;
 	svg2.append("path")
 	.attr("id",pathid)
 	.attr("class","foodpaths")
-	.transition()
-    .duration(5000)
-    .ease("linear")
 	.attr("d", pathstr)
+	.transition()
+    .duration(2000)
+    .ease("linear")
 	.attr("fill","none")
 	.attr("stroke","#B22222")
 	.attr("stroke-width",2);
@@ -127,10 +168,10 @@
 	}
 	}
 	else if(foodchain[nodenamec].status==1){
-	var selector="#"+nodenamec;
+	var sourceid="#"+nodenamec.replace(/ /g,'');
 	for(var i=0;i<foodchain[nodenamec].eats.length;i++) {
-	var pathid="#"+nodenamec+""+foodchain[nodenamec].eats[i];
-	var targetid="#"+foodchain[nodenamec].eats[i];
+	var pathid="#"+nodenamec.replace(/ /g,'')+""+foodchain[nodenamec].eats[i].replace(/ /g,'');
+	var targetid="#"+foodchain[nodenamec].eats[i].replace(/ /g,'');
 	
 	svg2.select(pathid)
 	.attr("stroke","#0f0");
@@ -139,34 +180,30 @@
 	.style("fill","red");
 	
 	}
-	svg2.select(selector)
+	svg2.select(sourceid)
 	.style("fill","yellow");
 	foodchain[nodenamec].status=2;
 	
 	}
 	else if(foodchain[nodenamec].status==2){
-	var selector="#"+nodenamec;
+	var sourceid="#"+nodenamec.replace(/ /g,'');
 	for(var i=0;i<foodchain[nodenamec].eats.length;i++) {
-	var pathid="#"+nodenamec+""+foodchain[nodenamec].eats[i];
-	var targetid="#"+foodchain[nodenamec].eats[i];
+	var pathid="#"+nodenamec.replace(/ /g,'')+""+foodchain[nodenamec].eats[i].replace(/ /g,'');
+	var targetid="#"+foodchain[nodenamec].eats[i].replace(/ /g,'');
 	svg2.select(pathid)
 	.attr("stroke","#B22222")
 	.attr("stroke-width",2);
 	svg2.select(targetid)
 	.style("fill","#61B329");
 	}
-	svg2.select(selector)
+	
+	svg2.select(sourceid)
 	.style("fill","#61B329");
+	
 	foodchain[nodenamec].status=1;
+	
 	}
-/*	svg2.append("path")
-	.attr("d", function() {
-	return "M 100,10 Q200,140 300,180 T400,200";
-	})
-	.attr("fill","none")
-	.attr("stroke","#f70")
-	.attr("stroke-width","1");
-	*/
+
 	})
 	.on("dblclick", function() {
 	/*alert("doubleclick");*/
