@@ -23,6 +23,7 @@
 	       "children": [ 
                {
            "name": "Crocodile",
+		   "eats": ["Frog"],
            "description": "" ,
            "free": true
                },
@@ -97,7 +98,7 @@
            "free": true
                },
                   {
-           "name": "crane",
+           "name": "Crane",
            "description":  "",
            "free": true
                },
@@ -135,7 +136,7 @@
                   {
            "name": "Monkey",
            "description":  "",
-		   "eats": ["Scorpion","Termite"],
+		   "eats": ["Scorpion","Termite","Banana"],
            "free": true
                },
                   {
@@ -207,7 +208,7 @@
 		"free": true,
 	       "children": [
                {
-                   "name": " Amoebozoa",
+                   "name": "Amoebozoa",
                    "free": true
                },
                {
@@ -258,7 +259,7 @@
                    "free": true
                },
                {
-                   "name": "Lion's mane Jelly",
+                   "name": "Lions mane Jelly",
                    "free": true
                }
            ]
@@ -412,7 +413,7 @@
         "free": true,
            "children": [
                {
-                   "name": " Pincushion Moss",
+                   "name": "Pincushion Moss",
                    "free": true
                },
                {
