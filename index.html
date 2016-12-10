@@ -278,6 +278,22 @@
 	.style("fill","yellow");
 	foodchain[nodenamec].status=2;
 	
+	
+	//call map paths here ---------------------------------------------------------------------------------<
+	
+	console.log(foodchain[nodenamec]);
+	if(foodchain[nodenamec].locations.length!=0){
+	for(var b=0;b<foodchain[nodenamec].locations.length;b++){
+	
+	// access data as foodchain[nodenamec].locations[b], foodchain[nodenamec].latitude[b], foodchain[nodenamec].longiude[b]
+	//use longitude, latitude data to convert into x,y coordinates to create path on globe
+	
+	}
+	}
+	
+	
+	
+	//end map pth calls here ------------------------------------------------------------------------------<
 	}
 	else if(foodchain[nodenamec].status==2){ // remove animations here in this block, 
 	
@@ -532,11 +548,21 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 	childarr[json.children[j].name].push(json.children[j].children[k].children[l].children[m].name);
 	childarr[json.children[j].children[k].name].push(json.children[j].children[k].children[l].children[m].name);
 	childarr[json.children[j].children[k].children[l].name].push(json.children[j].children[k].children[l].children[m].name);
-	
-	
-	
+	var locations=[];
+	var latitude=[];
+	var longitude=[];
+	if(json.children[j].children[k].children[l].children[m].locations) {
+	for(var a=0;a<json.children[j].children[k].children[l].children[m].locations.length;a++) {
+	locations[a]=json.children[j].children[k].children[l].children[m].locations[a];
+	latitude[a]=json.children[j].children[k].children[l].children[m].latitude[a];
+	longitude[a]=json.children[j].children[k].children[l].children[m].longitude[a];
+	}
+	}
 	
 	foodchain[nodename]={
+	"locations":locations,
+	"latitude":latitude,
+	"longitude":longitude,
 	"xpos":lvl3position,
 	"ypos":lvl3ypos,
 	"level":lvl3level,
@@ -579,12 +605,25 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 	childarr[json.children[j].children[k].children[l].name].push(json.children[j].children[k].children[l].children[m].children[p].name);
 	childarr[json.children[j].children[k].children[l].children[m].name].push(json.children[j].children[k].children[l].children[m].children[p].name);
 	
-	//push into childarr[json.children[j].name], childarr[json.children[j].children[k].name], childarr[json.children[j].children[k].children[l].name]
-	//   childarr[json.children[j].children[k].children[l].children[m]]
-	//push json.children[j].children[k].children[l].children[m].children[p].name
+	
+	
+	var locations=[];
+	var latitude=[];
+	var longitude=[];
+	if(json.children[j].children[k].children[l].children[m].children[p].locations) {
+	for(var a=0;a<json.children[j].children[k].children[l].children[m].children[p].locations.length;a++) {
+	locations[a]=json.children[j].children[k].children[l].children[m].children[p].locations[a];
+	latitude[a]=json.children[j].children[k].children[l].children[m].children[p].latitude[a];
+	longitude[a]=json.children[j].children[k].children[l].children[m].children[p].longitude[a];
+	}
+	}
+	
 	
 	
 	foodchain[nodename]={
+	"locations":locations,
+	"latitude":latitude,
+	"longitude":longitude,
 	"xpos":lvl4position,
 	"ypos":lvl4ypos,
 	"level":lvl4level,
