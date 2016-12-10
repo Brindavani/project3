@@ -60,9 +60,16 @@
   var div2 = d3.select("body").append("div").attr("class", "tooltip2").style("opacity", 0);
   var jsondata;
   var foodchain=[];
+  var childarr=[];
   var allstatus=0;
+  var presentstatus=0;
+  var previousid;
+  var previouslvl;
+  
+
   svg2.append("rect")
 	.attr("width",width2)
+	.attr("id","life")
 	.attr("height",stackheight)
 	.attr("y",0)
 	.style("fill",function() {
@@ -74,8 +81,26 @@
 	/*tooltip here - use jsondata */
 	})
 	.on("click", function(){
-	if(allstatus==0) {
-	svg2.selectAll(".foodpaths").remove(); // remove all paths
+	
+	if(previousid!=null) {
+	svg2.select(previousid)
+	.style("fill", function() {
+	return color2[previouslvl+1];
+	});
+	}
+	var nodeid="#life";
+	 previousid=nodeid;
+	 previouslvl=-1;
+	
+	svg2.select(nodeid)
+	.style("fill", "#fff");
+	
+	svg2.selectAll(".leafnodes")
+	.style("fill","#61b329");
+	svg2.selectAll(".foodpaths").remove();
+	svg2.select(".triangles").remove();
+//	if(allstatus==0) {
+	 // remove all paths
 	for(var nodnam in foodchain) { // make all rects to default color
 	foodchain[nodnam].status=0;
 	var nodname=nodnam.replace(/ /g,'');
@@ -83,9 +108,9 @@
 	svg2.select(allid)
 	.style("fill","#61B329");
 	}
-	allstatus=1;
-	}
-	else if(allstatus==1) {
+//	allstatus=1;
+//	}
+//	else if(allstatus==1) {
 	for(var node in foodchain){
 	if(foodchain[node].eats.length!=0) {	
 	var startxpos=foodchain[node].xpos+(foodchain[node].width/2);
@@ -104,18 +129,38 @@
 	svg2.append("path")
 	.attr("id",pathid)
 	.attr("class","foodpaths")
-	.transition()
-    .duration(2000)
-    .ease("linear")
+//	.transition()
+//    .duration(2000)
+//   .ease("linear")
 	.attr("d", pathstr)
 	.attr("fill","none")
 	.attr("stroke","#B22222")
-	.attr("stroke-width",2);
+	.attr("stroke-width",1);
+	
+	
+	var pathidanim="#"+pathid;
+	var totalLength = d3.select(pathidanim).node().getTotalLength();
+	d3.select(pathidanim)
+      .attr("stroke-dasharray", totalLength + " " + totalLength)
+      .attr("stroke-dashoffset", totalLength)
+      .transition()
+        .duration(1000)
+        .ease("linear")
+        .attr("stroke-dashoffset", 0);
+	
+	
 	}
+	foodchain[node].status=1;
 	}
 	}
 	allstatus=0;
-	}
+//	}
+	})
+	.on("dblclick", function() {
+	svg2.select("#life")
+	.style("fill", color2[0]);
+	svg2.selectAll(".foodpaths").remove();
+	svg2.selectAll(".triangles").remove();
 	});
 	
 	
@@ -123,6 +168,12 @@
  var nodeid=nodenamec.replace(/ /g,'');
  svg2.append("rect")
 	.attr("class","stacks")
+	.attr("class", function() {
+	if(ifchildc==false)
+	return "leafnodes";
+	else if(ifchildc==true)
+	return "parentnodes";
+	})
 	.attr("id",nodeid)
 	.attr("width",widthc)
 	.attr("height",stackheight)
@@ -137,9 +188,9 @@
 	.attr("stroke-width",1)
 	.attr("stroke","#777")
 	.on("click", function() {
-	console.log(foodchain[nodenamec]);
+	if(ifchildc==false) {
 	if(foodchain[nodenamec].status==0) {
-	if(ifchildc==false && foodchain[nodenamec].eats.length!=0) {
+	if(foodchain[nodenamec].eats.length!=0) {
 	var startxpos=foodchain[nodenamec].xpos+(foodchain[nodenamec].width/2);
 	var startypos=foodchain[nodenamec].ypos;
 	var startpair=startxpos+","+startypos;
@@ -157,17 +208,29 @@
 	.attr("id",pathid)
 	.attr("class","foodpaths")
 	.attr("d", pathstr)
-	.transition()
-    .duration(2000)
-    .ease("linear")
+//	.transition()
+//    .duration(2000)
+//    .ease("linear")
 	.attr("fill","none")
 	.attr("stroke","#B22222")
-	.attr("stroke-width",2);
+	.attr("stroke-width",1);
+	
+	var pathidanim="#"+pathid;
+	var totalLength = d3.select(pathidanim).node().getTotalLength();
+	d3.select(pathidanim)
+      .attr("stroke-dasharray", totalLength + " " + totalLength)
+      .attr("stroke-dashoffset", totalLength)
+      .transition()
+        .duration(1000)
+        .ease("linear")
+        .attr("stroke-dashoffset", 0);
+	
+	
 	}
 	foodchain[nodenamec].status=1;
 	}
 	}
-	else if(foodchain[nodenamec].status==1){
+	else if(foodchain[nodenamec].status==1){ // animate highlighted paths in this block and remove in another block, //on dblclick of rect add locations
 	var sourceid="#"+nodenamec.replace(/ /g,'');
 	for(var i=0;i<foodchain[nodenamec].eats.length;i++) {
 	var pathid="#"+nodenamec.replace(/ /g,'')+""+foodchain[nodenamec].eats[i].replace(/ /g,'');
@@ -178,6 +241,37 @@
 	
 	svg2.select(targetid)
 	.style("fill","red");
+
+	//animate here
+
+ 	
+	svg2.append("path")
+	.attr("class","triangles")
+	.attr("id",function() {
+	return "anims"+nodenamec.replace(/ /g,'')+""+foodchain[nodenamec].eats[i].replace(/ /g,'');
+	})
+	.attr("d","M-5,-2.5 L5,-2.5 L 0,-17.5 z")
+	.attr("stroke","red")
+	.attr("stroke-width","1.06")
+	.style("fill","yellow");
+	var animsid="#anims"+nodenamec.replace(/ /g,'')+""+foodchain[nodenamec].eats[i].replace(/ /g,'');
+	svg2.select(animsid)
+	.append("animateMotion")
+	.attr("id",function(){
+	return "animationin"+nodenamec.replace(/ /g,'')+""+foodchain[nodenamec].eats[i].replace(/ /g,'');
+	})
+	.attr("dur","6s")
+	.attr("repeatCount","indefinite")
+	.attr("rotate","auto");
+	
+	var animationinid="#animationin"+nodenamec.replace(/ /g,'')+""+foodchain[nodenamec].eats[i].replace(/ /g,'');
+	
+	svg2.select(animationinid)
+	.append("mpath")
+	.attr("id", function() {
+	return "tri"+nodenamec.replace(/ /g,'')+""+foodchain[nodenamec].eats[i].replace(/ /g,'');
+	})
+	.attr("xlink:href",pathid);
 	
 	}
 	svg2.select(sourceid)
@@ -185,25 +279,94 @@
 	foodchain[nodenamec].status=2;
 	
 	}
-	else if(foodchain[nodenamec].status==2){
+	else if(foodchain[nodenamec].status==2){ // remove animations here in this block, 
+	
 	var sourceid="#"+nodenamec.replace(/ /g,'');
 	for(var i=0;i<foodchain[nodenamec].eats.length;i++) {
 	var pathid="#"+nodenamec.replace(/ /g,'')+""+foodchain[nodenamec].eats[i].replace(/ /g,'');
 	var targetid="#"+foodchain[nodenamec].eats[i].replace(/ /g,'');
 	svg2.select(pathid)
 	.attr("stroke","#B22222")
-	.attr("stroke-width",2);
+	.attr("stroke-width",1);
 	svg2.select(targetid)
 	.style("fill","#61B329");
+	var animsid="#anims"+nodenamec.replace(/ /g,'')+""+foodchain[nodenamec].eats[i].replace(/ /g,'');
+	svg2.select(animsid).remove();
 	}
 	
 	svg2.select(sourceid)
 	.style("fill","#61B329");
 	
+	
+	
 	foodchain[nodenamec].status=1;
 	
 	}
-
+	}
+	else if(ifchildc==true) {
+	if(previousid!=null) {
+	svg2.select(previousid)
+	.style("fill", function() {
+	return color2[previouslvl+1];
+	});
+	}
+	var nodeid="#"+nodenamec.replace(/ /g,'');
+	 previousid=nodeid;
+	 previouslvl=levelc;
+	
+	svg2.select(nodeid)
+	.style("fill", "#fff");
+	svg2.selectAll(".foodpaths").remove();
+	svg2.selectAll(".triangles").remove();
+	svg2.selectAll(".leafnodes")
+	.style("fill","#61b329");
+	for(var a=0;a<childarr[nodenamec].length;a++) {		
+	var node=childarr[nodenamec][a];	
+	var startxpos=foodchain[node].xpos+(foodchain[node].width/2);
+	var startypos=foodchain[node].ypos;
+	var startpair=startxpos+","+startypos;
+	
+	if(foodchain[node].eats.length!=0) {
+	for(var j=0;j<foodchain[node].eats.length;j++){
+	var endnode=foodchain[node].eats[j];
+	var endxpos=foodchain[endnode].xpos+(foodchain[endnode].width/2);
+	var endypos=foodchain[endnode].ypos;
+	var endpair=endxpos+","+endypos;
+	var xcor=(startxpos+endxpos)/2;
+	var dist=Math.sqrt(Math.pow(startxpos-endxpos,2)+Math.pow(startypos-endypos,2));
+	var ycor=(2*height2/3)-((height2)*(dist/width2));
+	var pathid=node.replace(/ /g,'')+""+foodchain[node].eats[j].replace(/ /g,'');
+	var pathstr="M "+startpair+" C"+xcor+","+ycor+" "+xcor+","+ycor+" "+endpair;
+	svg2.append("path")
+	.attr("id",pathid)
+	.attr("class","foodpaths")
+//	.transition()
+//    .duration(2000)
+//    .ease("linear")
+	.attr("d", pathstr)
+	.attr("fill","none")
+	.attr("stroke","#B22222")
+	.attr("stroke-width",1);
+	
+	
+	var pathidanim="#"+pathid;
+	var totalLength = d3.select(pathidanim).node().getTotalLength();
+	d3.select(pathidanim)
+      .attr("stroke-dasharray", totalLength + " " + totalLength)
+      .attr("stroke-dashoffset", totalLength)
+      .transition()
+        .duration(1000)
+        .ease("linear")
+        .attr("stroke-dashoffset", 0);
+	
+	
+	}
+	foodchain[node].status=1;
+	}
+	}
+	
+	}
+	
 	})
 	.on("dblclick", function() {
 	/*alert("doubleclick");*/
@@ -277,6 +440,7 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
   json.width=width2;
   var lvl0position=0;
   for(var j=0;j<lvl[0];j++){
+  childarr[json.children[j].name]=new Array();
   var lvl0width=Number(json.children[j].leafs/lvltotal[j]*width2);
   var lvl0level=0;
   json.children[j].ypos=stackheight*(lvl0level+1);
@@ -296,6 +460,7 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 	
 	var lvl1position=Number(json.children[j].xpos);
 	for(var k=0;k<json.children[j].children.length;k++){
+	childarr[json.children[j].children[k].name]=new Array();
 	var lvl1width=Number((Number(json.children[j].children[k].leafs)/sum)*Number(json.children[j].width));
 	json.children[j].children[k].width=lvl1width;
 	var lvl1level=1;
@@ -315,6 +480,7 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 	
 	var lvl2position=Number(json.children[j].children[k].xpos);
 	for(var l=0;l<json.children[j].children[k].children.length;l++){
+	childarr[json.children[j].children[k].children[l].name]=new Array();
 	var lvl2width=Number((Number(json.children[j].children[k].children[l].leafs)/sum1)*Number(json.children[j].children[k].width));
 	json.children[j].children[k].children[l].width=lvl2width;
 	var lvl2level=2;
@@ -334,6 +500,9 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 	
 	var lvl3position=Number(json.children[j].children[k].children[l].xpos);
 	for(var m=0;m<json.children[j].children[k].children[l].children.length;m++){
+	if(json.children[j].children[k].children[l].children[m].children) {
+	childarr[json.children[j].children[k].children[l].children[m].name]=new Array();
+	}
 	if(json.children[j].children[k].children[l].children[m].leafs)
 	var lvl3width=Number(Number(json.children[j].children[k].children[l].children[m].leafs)/sum2*Number(json.children[j].children[k].children[l].width));
 	else
@@ -356,7 +525,17 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 	}
 	createrect(lvl3width,lvl3level,lvl3position,ifchild,nodename);
 	
+	
 	if(!(json.children[j].children[k].children[l].children[m].children)) {
+	//push json.children[j].children[k].children[l].children[m].name
+	
+	childarr[json.children[j].name].push(json.children[j].children[k].children[l].children[m].name);
+	childarr[json.children[j].children[k].name].push(json.children[j].children[k].children[l].children[m].name);
+	childarr[json.children[j].children[k].children[l].name].push(json.children[j].children[k].children[l].children[m].name);
+	
+	
+	
+	
 	foodchain[nodename]={
 	"xpos":lvl3position,
 	"ypos":lvl3ypos,
@@ -394,6 +573,17 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 	var eatsarr=[];
 	}
 	createrect(lvl4width,lvl4level,lvl4position,ifchild,nodename);
+	
+	childarr[json.children[j].name].push(json.children[j].children[k].children[l].children[m].children[p].name);
+	childarr[json.children[j].children[k].name].push(json.children[j].children[k].children[l].children[m].children[p].name);
+	childarr[json.children[j].children[k].children[l].name].push(json.children[j].children[k].children[l].children[m].children[p].name);
+	childarr[json.children[j].children[k].children[l].children[m].name].push(json.children[j].children[k].children[l].children[m].children[p].name);
+	
+	//push into childarr[json.children[j].name], childarr[json.children[j].children[k].name], childarr[json.children[j].children[k].children[l].name]
+	//   childarr[json.children[j].children[k].children[l].children[m]]
+	//push json.children[j].children[k].children[l].children[m].children[p].name
+	
+	
 	foodchain[nodename]={
 	"xpos":lvl4position,
 	"ypos":lvl4ypos,
