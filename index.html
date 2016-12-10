@@ -13,15 +13,12 @@
 	}
 	
 	div.tooltip2 {
-	padding:3px;
     position: absolute;     
-    text-align: center;        
-    padding: 10px 5px;       
+    text-align: center;      
     font: 12px segoe ui;    
-//    background: #E1F7DB; 
 	background:#444;
-    border: 0px;    
-    border-radius: 8px;     
+    border: 1px solid #444;
+	box-shadow: 0 0 5px #444;    
     pointer-events: none;     
 	font-weight:bold;
 	color:#eee;
@@ -32,7 +29,6 @@
 	}
 	
 	.stacks {
-//	cursor:pointer;
 	
 	}
 	
@@ -391,7 +387,7 @@
 	var imgsrc="Images/"+nodenamec+".jpg";
 	div2.transition()    
             .duration(200)    
-            .style("opacity", .8);    
+            .style("opacity", 1.0);    
       div2.html(nodenamec+"<br>")
             .style("left", (d3.event.pageX) + "px")   
             .style("top", (d3.event.pageY - 28) + "px");
@@ -403,8 +399,8 @@
 			.attr("height",150);
 		
 			d3.select(".tooltip2")
-			.style("width","140px")
-			.style("height","200px");
+			.style("width","122px")
+			.style("height","168px");
 		}
 	})
 	.on("mouseout", function() {
