@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Network visualization</title>
+
+<link rel='shortcut icon' href='Images/nature.ico' type='image/x-icon'/ >
+<style>
+body{
+padding:0;
+margin:0;
+}
+
+.topdiv {
+position:fixed;
+z-index:1;
+top:0;
+left:0;
+width:100%;
+height:6%;
+background:#DFDBD1;
+}
+
+.top1 {
+letter-spacing:3px;
+word-spacing:3px;
+font-family:segoe ui;
+font-size:16px;
+font-weight:bold;
+position:absolute;
+top:20%;
+left:100px;
+}
+
+.upldimg {
+background:#555;
+position:absolute;
+top:0px;
+left:94%;
+width:6%;
+height:100%;
+}
+
+.upldimg img {
+width:33%;
+height:55%;
+margin:auto;
+position:absolute;
+top:20%;
+left:8%;
+-webkit-transition: transform 1s; /* For Safari 3.1 to 6.0 */
+    transition: transform 1s;
+cursor:pointer;
+}
+
+.upldimg:hover {
+background:#222;
+}
+
+.upldimg img:hover {
+-ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+}
+
+.leftdiv {
+z-index:1;
+position:fixed;
+top:0;
+left:0;
+width:3%;
+height:100%;
+background:#DFDBD1;
+color:#555;
+font-family:segoe ui,sans-serif;
+
+}
+
+.left1 {
+position:absolute;
+left:-60px;
+top:42%;
+font-size:13px;
+letter-spacing: 2px;
+transform: rotate(-90deg);
+-webkit-transform: rotate(-90deg);
+-moz-transform: rotate(-90deg);
+-ms-transform: rotate(-90deg);
+-o-transform: rotate(-90deg);
+}
+
+.rightdiv {
+z-index:1;
+position:fixed;
+top:0;
+left:97%;
+width:3%;
+height:100%;
+background:#DFDBD1;
+}
+
+.bottomdiv {
+z-index:1;
+position:fixed;
+top:94%;
+left:0;
+width:100%;
+height:6%;
+background:#DFDBD1;
+}
+
+.theme {
+position:fixed;
+top:6%;
+left:3%;
+width:94%;
+height:88%;
+min-height: 500px;
+background-image: url("Images/b5.jpg");
+background-size:100% 100%;
+}
+
+.main {
+position:absolute;
+top:6%;
+left:3%;
+width:94%;
+min-height:1500px;
+background:#999;/* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(rgba(9,9,9,0), rgba(9,9,9,0.2), rgba(9,9,9,1), rgba(9,9,9,1),rgba(9,9,9,1)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(rgba(9,9,9,0), rgba(9,9,9,0.2), rgba(9,9,9,1), rgba(9,9,9,1),rgba(9,9,9,1)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(rgba(9,9,9,0), rgba(9,9,9,0.2), rgba(9,9,9,1), rgba(9,9,9,1),rgba(9,9,9,1)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(rgba(9,9,9,0), rgba(9,9,9,0.2), rgba(9,9,9,1), rgba(9,9,9,1),rgba(9,9,9,1)); /* Standard syntax (must be last) */
+}
+
+.maintitle {
+//border:2px solid #fff;
+width:350px;
+height:170px;
+color:#eee;
+font-family:segoe ui;
+font-size:40px;
+font-weight:bold;
+letter-spacing:5px;
+position:absolute;
+top:100px;
+left:850px;
+text-align:center;
+text-shadow: 0px 0px 10px #fff;
+opacity:0.6;
+}
+
+#menuimg {
+position:absolute;
+left:3%;
+top:0;
+}
+
+#scroll {
+cursor:pointer;
+position:absolute;
+left:50%;
+top:35%;
+height:25px;
+width:25px;
+opacity:0.5;
+-webkit-animation-name: scrolldown; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+    animation-name: scrolldown;
+	animation-delay: 2s;
+    animation-duration: 3s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes scrolldown {
+    0% {top: 35%;}
+    50% {top: 32%;}
+	100% {top: 35%;}
+}
+
+/* Standard syntax */
+@keyframes scrolldown {
+    0% {top: 35%;}
+    50% {top: 32%;}
+	100% {top: 35%;}
+}
+
+.networkdiv {
+border:2px solid #fff;
+width:100%;
+height:550px;
+position:absolute;
+top:700px;
+left:0px;
+}
+
+</style>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<div class="topdiv">
+<img src="Images/menu.png" id="menuimg" alt="Smiley face" height="42" width="42">
+<span class="top1">Network Visualization</span>
+<span class='upldimg'><img src="Images/upload.png" alt="upload"></span>
+</div>
+<div class="leftdiv">
+<div class="left1">Network&nbsp;Visualization</div>
+</div>
+<div class="rightdiv"></div>
+<div class="bottomdiv"></div>
+<div class="theme"></div>
+<div class="main">
+<div class="maintitle">
+Life<br>on<br>Earth
+</div>
+<a href="#netdiv"><img id="scroll" src="Images/img2.png" alt="Scroll Down"/></a>
+<div id="netdiv" class="networkdiv"></div>
+</div>
+</body>
