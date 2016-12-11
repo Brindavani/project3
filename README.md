@@ -81,7 +81,7 @@ Our Project 3 is a group of 4 students: Aravind Kattamuri, Bharath Kumar Kande, 
 Bharath Kumar Kande is the leader of this group. Below are the duties of each student in our group: 
 
 **Aravind Kattamuri:**  Aravind Kattamuri mainly worked on
-1.Creating the dataset for this project by working with Brindavani Sunkari and Praneeth Yerramothu. the top 200 locations for both the news/blogs and creating a visualization to plot locations mentioned in news/blogs on a world map using D3.js.
+1.Creating the dataset for this project by working with Brindavani Sunkari and Praneeth Yerramothu.
 2.Creating the dashboard(Bar-chart and Pie-chart) that represents the Species Distribution & their Conservation Status using D3.js. 
 3.Creating report for this project by working with Praneeth Yerramothu and Brindavani Sunkari.
 
