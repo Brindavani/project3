@@ -33,6 +33,20 @@
 	height: 250px;
 }
 
+div.tooltip {	
+    position: absolute;			
+    text-align: center;			
+    width: 60px;					
+    height: 28px;					
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: lightsteelblue;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;			
+}
+
+
 .slice {
    font-size: 12pt;
    font-family: Verdana;
@@ -152,11 +166,12 @@ var 	formatAsPercentage = d3.format("%"),
 function dsPieChart(){
 
 	var dataset = [
-			{category: "Plants", measure: 0.42},
-	      {category: "Tetrapods", measure: 0.30},
-	      {category: "Birds", measure: 0.13},
-	      {category: "Amphibians", measure: 0.08},
-	      {category: "Mammals", measure: 0.07}
+			{category: "Plants", measure: 0.33},
+	      {category: "Reptails", measure: 0.14},
+		  {category: "Fishes", measure: 0.28},
+	      {category: "Birds", measure: 0.12},
+	      {category: "Amphibians", measure: 0.07},
+	      {category: "Mammals", measure: 0.06}
 	      ]
 	      ;
 
@@ -274,23 +289,32 @@ dsPieChart();
 -------------------------------------------
 */
 
+// Define the div for the tooltip
+var div = d3.select("body").append("div")	
+    .attr("class", "tooltip")				
+    .style("opacity", 0);
 
 var datasetBarChart = [
-{ group: "All", category: "Least Concern", measure: 26171.0000 }, 
-{ group: "All", category: "Threatened", measure: 11239.0000 }, 
-{ group: "All", category: "Extinct", measure: 123.0000 }, 
-{ group: "All", category: "Data Deficient", measure: 3610.0000 }, 
-{ group: "All", category: "Not Evaluated", measure: 33615.0000 }, 
+{ group: "All", category: "Least Concern", measure: 30334.0000 }, 
+{ group: "All", category: "Threatened", measure: 14856.0000 }, 
+{ group: "All", category: "Extinct", measure: 164.0000 }, 
+{ group: "All", category: "Data Deficient", measure: 4782.0000 }, 
+{ group: "All", category: "Not Evaluated", measure: 39338.0000 }, 
 { group: "Plants", category: "Least Concern", measure: 842.0000 }, 
 { group: "Plants", category: "Threatened", measure: 1023.0000 }, 
 { group: "Plants", category: "Extinct", measure: 12.0000 }, 
 { group: "Plants", category: "Data Deficient", measure: 75.0000 }, 
 { group: "Plants", category: "Not Evaluated", measure: 29259.0000 }, 
-{ group: "Tetrapods", category: "Least Concern", measure: 12773.0000 }, 
-{ group: "Tetrapods", category: "Threatened", measure: 5220.0000 }, 
-{ group: "Tetrapods", category: "Extinct", measure: 59.0000 }, 
-{ group: "Tetrapods", category: "Data Deficient", measure: 1777.0000 }, 
-{ group: "Tetrapods", category: "Not Evaluated", measure: 2992.0000 }, 
+{ group: "Reptails", category: "Least Concern", measure: 7966.0000 }, 
+{ group: "Reptails", category: "Threatened", measure: 2286.0000 }, 
+{ group: "Reptails", category: "Extinct", measure: 11.0000 }, 
+{ group: "Reptails", category: "Data Deficient", measure: 80.0000 }, 
+{ group: "Reptails", category: "Not Evaluated", measure: 1741.0000 }, 
+{ group: "Fishes", category: "Least Concern", measure: 8970.0000 }, 
+{ group: "Fishes", category: "Threatened", measure: 6552.0000 }, 
+{ group: "Fishes", category: "Extinct", measure: 89.0000 }, 
+{ group: "Fishes", category: "Data Deficient", measure: 2869.0000 }, 
+{ group: "Fishes", category: "Not Evaluated", measure: 6976.0000 }, 
 { group: "Birds", category: "Least Concern", measure: 7749.0000 }, 
 { group: "Birds", category: "Threatened", measure: 2068.0000 }, 
 { group: "Birds", category: "Extinct", measure: 4.0000 }, 
@@ -414,6 +438,19 @@ function dsBarChart() {
 	.text(function(d) {
 			return formatAsInteger(d3.round(d.measure));
 	})
+	.on("mouseover", function(d) {		
+            div.transition()		
+                .duration(200)		
+                .style("opacity", .9);		
+             div.html(formatAsInteger(d3.round(d.measure)))	
+                .style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px");	
+            })					
+    .on("mouseout", function(d) {		
+            div.transition()		
+                .duration(500)		
+                .style("opacity", 0);	
+        })
 	.attr("text-anchor", "middle")
 	// Set x position to the left edge of each bar plus half the bar width
 	.attr("x", function(d, i) {
