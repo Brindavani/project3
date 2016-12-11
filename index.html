@@ -5,6 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://d3js.org/d3.v3.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://d3js.org/topojson.v1.min.js"></script>
+    <script src="d3.geo.projection.min.js"></script>
 	<style>
 	.svg2 {
 	margin-left:50px;
@@ -22,6 +25,7 @@
     pointer-events: none;     
 	font-weight:bold;
 	color:#eee;
+	z-index:10;
 }
 	
 	.picture {
@@ -36,7 +40,136 @@
 	position:absolute;
 	}
 	
+	.svg3 {
+		position:absolute;
+		top:58px;
+		left:670px;
+		margin: 0 auto;
+		display: inherit;
+		border:1px solid #000;
+	}
 
+.graticule {
+  fill: none;
+  stroke: #777;
+  stroke-width: 2px;
+  stroke-opacity: .0;
+}
+
+.land {
+  fill: #999;
+}
+
+.boundary {
+  fill: none;
+  stroke: #fff;
+  stroke-width: .5px;
+}
+
+	.node circle {
+	  stroke: #fff;
+	  stroke-width: 1.5px;
+	}
+	
+	.link {
+    stroke: #ccc;
+	stroke-width: 1.5px;
+    }
+	 
+	.node text {
+    pointer-events: none;
+    font: 10px sans-serif;
+	}
+
+	.states path {
+		stroke-width: 1px;
+		stroke: white;
+		fill: #DBDBDB;
+		cursor: pointer;
+	}
+
+	.arcs path {
+	  stroke-width: 2px;
+	  stroke: tomato;
+	  pointer-events: none;
+	  fill: none;
+	}
+	
+	.stackdesc, .mapdesc {
+	position:absolute;
+	top:400px;
+	width:600px;
+	height:200px;
+	border:1px solid #000;
+	}
+	
+	.stackdesc {
+	left:50px;
+	z-index:5;
+	}
+	
+	.mapdesc {
+	left:670px;
+	}
+	
+	.consspan, .prodspan {
+	border:1px solid #000;
+	height:40px;
+	padding:5px 5px 5px 5px;
+	font-size:16px;
+	letter-spacing:1px;
+	font-family:segoe ui;
+	}
+	
+	.consspan {
+	background:yellow;
+	}
+	
+	.prodspan {
+	background:red;
+	}
+	
+	.titledesc {
+	padding-top:10px;
+	padding-left:10px;
+	border:1px solid #000;
+	height:30px;
+	}
+	
+	.imgdesc {
+	border:1px solid red;
+	width:120px;
+	float:left;
+	}
+	
+	.otherdesc {
+	border:1px solid green;
+	width:470px;
+	float:right;
+	height:150px;
+	}
+	
+	.descdesc {
+	border:1px solid pink;
+	height:50px;
+	width:450px;
+	}
+	
+	.linkdesc {
+	width:150px;
+	height:50px;
+	width:450px;
+	padding:10px;
+	border:1px solid blue;
+	}
+	
+	.anchor {
+	border:1px solid tomato;
+	position:relative;
+	left:170px;
+	top:10px;
+	}
+	
 	</style>
   </head>
   <body>
@@ -48,11 +181,17 @@
 });
   */
   var width2=600;
-  var height2=380;
-//  var color2=["#ddd","#bbbbbb","#999999","#666666","#4d4d4d","#8382BD"];
-	var color2=["#CFDBC5","#C0D9AF","#BCED91","#A6D785","#8FA880","#61B329"];
+  var height2=340;
+  var width3=600;
+  var height3=340;
+  var color2=["#CFDBC5","#C0D9AF","#BCED91","#A6D785","#8FA880","#61B329"];
   var stackheight=height2/6;
   var svg2=d3.select("body").append("svg").attr("class","svg2").attr("width",width2).attr("height",height2);
+  var svg3=d3.select("body").append("svg").attr("class","svg3").attr("width",width3).attr("height",height3);
+  var projection = d3.geo.patterson().scale(100).translate([width3 / 2, height3 / 2]).precision(.1);
+  var path = d3.geo.path().projection(projection);
+  var graticule = d3.geo.graticule();
+  var arcs = svg3.append("g").attr("class","arcs");
   var div2 = d3.select("body").append("div").attr("class", "tooltip2").style("opacity", 0);
   var jsondata;
   var foodchain=[];
@@ -61,7 +200,57 @@
   var presentstatus=0;
   var previousid;
   var previouslvl;
+  var centered;
   
+  svg3.append("path")
+    .datum(graticule)
+    .attr("class", "graticule")
+    .attr("d", path);
+	
+	d3.json("World_Map.json", function(error, world) {
+  if (error) throw error; 
+    var arcdata = [       
+        {
+			sourceLocation: [10.4515, 51.1657],
+			targetLocation: [105.3188, 61.5240]
+		}
+	]
+
+	
+	 var places = [
+  {
+    name: "Germany",
+    location: {
+      latitude: 51.1657
+,
+      longitude: 10.4515
+
+    }
+  }]
+       
+     
+  svg3.insert("path", ".graticule")
+      .datum(topojson.feature(world, world.objects.land))
+      .attr("class", "land")
+      .attr("d", path);
+
+  svg3.insert("path", ".graticule")
+      .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+      .attr("class", "boundary")
+      .attr("d", path);
+    
+           
+       
+});
+	
+	d3.select(self.frameElement).style("height", height3 + "px");
+	
+	
+	
+	
+	
+	
+	
 
   svg2.append("rect")
 	.attr("width",width2)
@@ -269,6 +458,8 @@
 	})
 	.attr("xlink:href",pathid);
 	
+	//animation ends here
+	
 	}
 	svg2.select(sourceid)
 	.style("fill","yellow");
@@ -277,15 +468,9 @@
 	
 	//call map paths here ---------------------------------------------------------------------------------<
 	
+	
+	
 	console.log(foodchain[nodenamec]);
-	if(foodchain[nodenamec].locations.length!=0){
-	for(var b=0;b<foodchain[nodenamec].locations.length;b++){
-	
-	// access data as foodchain[nodenamec].locations[b], foodchain[nodenamec].latitude[b], foodchain[nodenamec].longiude[b]
-	//use longitude, latitude data to convert into x,y coordinates to create path on globe
-	
-	}
-	}
 	
 	
 	
@@ -379,6 +564,151 @@
 	
 	}
 	
+	
+	
+	svg3.selectAll(".maplocs").remove();
+	svg3.selectAll(".mappaths").remove();
+	svg3.selectAll(".mapimages").remove();
+	
+	//map animations goes here _____________________________________________________________________________________________<
+	
+	if(foodchain[nodenamec].migrating==false) {
+	if(foodchain[nodenamec].locations.length!=0){
+	for(var b=0;b<foodchain[nodenamec].locations.length;b++){
+	var locationid=(foodchain[nodenamec].locations[b].replace(/ /g,''))+""+(nodenamec.replace(/ /g,''));
+	svg3.append("circle")
+	.attr("class","maplocs")
+	.attr("id",locationid)
+	.attr("r", 3)
+    .attr("fill", "green") 
+    .attr("stroke","black")
+	.attr("transform", function() {
+    return "translate(" + projection([foodchain[nodenamec].longitude[b], foodchain[nodenamec].latitude[b]]) + ")";
+     });
+	
+	// access data as foodchain[nodenamec].locations[b], foodchain[nodenamec].latitude[b], foodchain[nodenamec].longiude[b]
+	//use longitude, latitude data to convert into x,y coordinates to create path on globe
+	
+	}
+	}
+	}
+	
+	else if(foodchain[nodenamec].migrating==true) {
+	for(var c=0;c<foodchain[nodenamec].locations.length;c++) {
+	var locationid=(foodchain[nodenamec].locations[c].replace(/ /g,''))+""+(nodenamec.replace(/ /g,''));
+	svg3.append("circle")
+	.attr("class","maplocs")
+	.attr("id",locationid)
+	.attr("r", 3)
+    .attr("fill", "green") 
+    .attr("stroke","black")
+	.attr("transform", function() {
+    return "translate(" + projection([foodchain[nodenamec].longitude[c], foodchain[nodenamec].latitude[c]]) + ")";
+     });
+	
+	}
+	svg3.append("path")
+	.attr("class","mappaths")
+	.attr("id","olala")
+	 .attr("d", function() {
+	 var firstlat=foodchain[nodenamec].latitude[0]+7;
+	 var firstlong=foodchain[nodenamec].longitude[0]-15;
+	 var firstpoint=projection([firstlong,firstlat]);
+	 var totalpath="M"+firstpoint;
+	 for(var d=1;d<foodchain[nodenamec].locations.length;d++) {
+	 totalpath=totalpath+" L"+projection([foodchain[nodenamec].longitude[d]-15,foodchain[nodenamec].latitude[d]+7]);
+	 }
+	 return totalpath;
+	 })
+	 .style("fill","none")
+	 .attr("stroke","red")
+	 .attr("stroke-width","1")
+	 .attr("opacity",0);
+	
+	
+	//migration animation goes here -----------------------------------------------------------------------------------------<
+	
+	
+	svg3.append("image")
+	.attr("xlink:href","Imgtypes/bird.png")
+	.attr("width",50)
+	.attr("height",50)
+	.attr("class","mapimages")
+	.attr("id",function() {
+	return "anims";
+	});
+	var animsid="#anims";
+	svg3.select(animsid)
+	.append("animateMotion")
+	.attr("id",function(){
+	return "animationin";
+	})
+	.attr("dur","10s")
+	.attr("repeatCount","indefinite");
+	
+	var animationinid="#animationin";
+	
+	svg3.select(animationinid)
+	.append("mpath")
+	.attr("id", function() {
+	return "tri";
+	})
+	.attr("xlink:href","#olala");
+	
+	}
+	
+	// stack Description here ---------------------------------------------------------------------------------------------<
+	
+	
+	d3.selectAll(".consspan").remove();
+	d3.selectAll(".prodspan").remove();
+	d3.selectAll(".titledesc").remove();
+	d3.selectAll(".imgdesc").remove();
+	d3.selectAll(".otherdesc").remove();
+	
+	d3.select(".stackdesc").append("div")
+	.attr("class","titledesc");
+	
+	d3.select(".titledesc")
+	.append("span")
+	.attr("class","consspan")
+	.append("text")
+	.text(nodenamec);
+	if(foodchain[nodenamec].eats) {
+	for(var e=0;e<foodchain[nodenamec].eats.length;e++) {
+	
+	d3.select(".titledesc")
+	.append("span")
+	.attr("class","prodspan")
+	.append("text")
+	.text(foodchain[nodenamec].eats[e]);
+	
+	}
+	}
+	var imgpath="Images/"+nodenamec+".jpg";
+	d3.select(".stackdesc")
+	.append("div")
+	.attr("class","imgdesc")
+	.append("img")
+	.attr("src",imgpath);
+	
+	d3.select(".stackdesc")
+	.append("div")
+	.attr("class","otherdesc");
+	
+	d3.select(".otherdesc")
+	.append("div")
+	.attr("class","descdesc")
+	.append("text")
+	.text(foodchain[nodenamec].description);
+	
+	d3.select(".otherdesc")
+	.append("div")
+	.attr("class","linkdesc");
+		
+	d3.select(".linkdesc")
+	.html("<a href='https://en.wikipedia.org/wiki/"+nodenamec+"' class='anchor' target='_blank'>More Info</a>")
+
 	})
 	.on("dblclick", function() {
 	/*alert("doubleclick");*/
@@ -554,8 +884,20 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 	longitude[a]=json.children[j].children[k].children[l].children[m].longitude[a];
 	}
 	}
+	var migrating=false;
+	if(json.children[j].children[k].children[l].children[m].migrating) {
+	if(json.children[j].children[k].children[l].children[m].migrating==true)
+	migrating=true;
+	}
+	
+	var description="olala";
+	if(json.children[j].children[k].children[l].children[m].description) {
+	var description=json.children[j].children[k].children[l].children[m].description;
+	}
 	
 	foodchain[nodename]={
+	"description":description,
+	"migrating":migrating,
 	"locations":locations,
 	"latitude":latitude,
 	"longitude":longitude,
@@ -614,9 +956,20 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 	}
 	}
 	
+	var migrating=false;
+	if(json.children[j].children[k].children[l].children[m].children[p].migrating) {
+	if(json.children[j].children[k].children[l].children[m].children[p].migrating==true)
+	migrating=true;
+	}
 	
+	var description="olala";
+	if(json.children[j].children[k].children[l].children[m].children[p].description) {
+	var description=json.children[j].children[k].children[l].children[m].children[p].description;
+	}
 	
 	foodchain[nodename]={
+	"description":description,
+	"migrating":migrating,
 	"locations":locations,
 	"latitude":latitude,
 	"longitude":longitude,
@@ -650,6 +1003,7 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 
 
   </script>
-  
+  <div class="stackdesc"></div>
+  <div class="mapdesc"></div>
   </body>
 </html>
