@@ -20,8 +20,6 @@ We preprocessed the data to get the required visualization for this project3. Co
 ![ScreenShot](https://github.com/aravindkattamuri/Project-2/blob/master/1.png)
 
 
-![ScreenShot](https://github.com/aravindkattamuri/Project-2/blob/master/2.png)
-
 
 **Second:**  We have visualized the classification of Flora(Plants) and Fauna(animals) along with their food-chain relationship. Created a Stacking/Touching visualization using D3.js to represent this data. 
 When a user selects a particular node on the Touching visualization, it highlights their food-chain relationship in that visualization. We also allow users to mouse-over these nodes to see the corresponding category/name.  Mouse-over on the leaf nodes also displays the image of that plant/animal.
