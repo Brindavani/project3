@@ -1,22 +1,22 @@
 {
  "name": "",
- "leafs": 95,
+ "leafs": 121,
  "children": [
    {
     "name": "Fauna",
-	"leafs": 50,
+	"leafs": 76,
     "free": true,
     "description": "Animal life of any particular region or time",
     "children": [
      {
       "name": "Vertebrates",
-	  "leafs": 25,
+	  "leafs": 50,
       "description": "Oraganisms that have vertebral column",
       "free": true,
       "children": [
        {
         "name": "Reptiles",
-		"leafs": 5,
+		"leafs": 10,
         "description": "Vertebrates that have four limbs",
         "url": "https://datawrapper.de/",
         "free": true,
@@ -27,6 +27,37 @@
            "description": "" ,
            "free": true
                },
+			{
+               "name": "Aeolin Wall Lizard",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+			 {
+               "name": "Antiguan Racer",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+             {
+               "name": "Bog Turtle",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+             {
+               "name": "Annam Leaf Turtle",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+
+             {
+               "name": "African Viviparis Toad",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
               {
            "name": "Snake",
            "description": "" ,
@@ -52,7 +83,7 @@
        },
        {
         "name": "Amphibians",
-		"leafs": 4,
+		"leafs": 9,
         "description": "Vertebrates that can live on both land and water",
         "free": true,
 	       "children": [ 
@@ -61,6 +92,36 @@
            "description": "" ,
            "free": true
                },
+			   {
+               "name": "Achoque",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+             {
+               "name": "Adenomus",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+             {
+               "name": "Adlers Mottled Tee Frog",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+             {
+               "name": "Admirable Salamander",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+             {
+               "name": "African Paris Toad",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
               {
            "name": "Salamander",
            "description": "" ,
@@ -82,7 +143,7 @@
        },
        {
         "name": "Birds",
-		"leafs": 5,
+		"leafs": 10,
         "description": "Vertebrates characterised by wings,beaked-jaws",
         "url": "https://plot.ly/",
         "free": true,
@@ -92,6 +153,36 @@
            "description": "" ,
            "free": true
                },
+			   {
+               "name": "Akekes",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+             {
+               "name": "Akikiki",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+             {
+               "name": "Akohekohe",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+             {
+               "name": "Amsterdam Albatross",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+             {
+               "name": "Asian White Backed Vulture",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
               {
            "name": "Penguin",
            "description": "" ,
@@ -117,7 +208,7 @@
        },
        {
         "name": "Mammals",
-		"leafs": 6,
+		"leafs": 11,
         "description": "Vertebrates that give birth to live young",
         "url": "http://raw.densitydesign.org/",
         "free": true,
@@ -128,6 +219,36 @@
 		   "eats": ["Insects","Moths"],
            "free": true
                },
+			   {
+               "name": "Abbotts Duiker",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+             {
+               "name": "Addax",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+             {
+               "name": "Agile Gibbon",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+             {
+               "name": "African Wild Dog",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+             {
+               "name": "Amami Rabbit",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
               {
            "name": "Bear",
            "description": "" ,
@@ -162,7 +283,7 @@
        },
 	   {
         "name": "Fish",
-		"leafs": 5,
+		"leafs": 10,
         "description": "Vertebrates that breathe through gills",
         "url": "http://raw.densitydesign.org/",
         "free": true,
@@ -172,6 +293,36 @@
            "description": "" ,
            "free": true
                },
+			   {
+               "name": "Adriatic Sturgeon",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+             {
+               "name": "Blue Whale",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+             {
+               "name": "Hammerhead Shark",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+             {
+               "name": "Vaquita",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
+             {
+               "name": "Florida Manatee",
+               "description": "" ,
+               "eats": ["Insects","Moths"],
+               "free": true
+             },
               {
            "name": "Megaladon",
            "description": "" ,
@@ -203,7 +354,7 @@
      },
      {
       "name": "Invertebrates",
-	  "leafs": 25,
+	  "leafs": 26,
       "description": "Oraganisms that don't have vertebral column",
 	  "free": true,
       "children": [
@@ -294,7 +445,7 @@
        },
 	   {
         "name": "Molluscs",
-		"leafs": 3,
+		"leafs": 4,
         "description": "Marine invertebrates with significant cavity for breathing and excretion",
         "url": "http://www.tableausoftware.com/products/desktop",
 		"free": true,
@@ -303,6 +454,12 @@
                    "name": "Squid",
                    "free": true
                },
+			   {
+                "name": "Amastrid Land Snail",
+                "description": "" ,
+                "eats": ["Insects","Moths"],
+                "free": true
+              },
                {
                    "name": "Octopus",
                    "free": true
