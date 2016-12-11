@@ -7,6 +7,7 @@
 	<script src="https://d3js.org/d3.v3.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://d3js.org/topojson.v1.min.js"></script>
+<!--	<script src="http://d3js.org/d3.v2.js"></script> -->
     <script src="d3.geo.projection.min.js"></script>
 	<style>
 	.svg2 {
@@ -46,7 +47,7 @@
 		left:670px;
 		margin: 0 auto;
 		display: inherit;
-		border:1px solid #000;
+//		border:1px solid #000;
 	}
 
 .graticule {
@@ -112,6 +113,21 @@
 	left:670px;
 	}
 	
+	.mtitledesc, .mdescdesc {
+	border:1px solid red;
+	width:500px;
+	
+	}
+	
+	.mtitledesc {
+	height:50px;
+	
+	}
+	
+	.mdescdesc {
+	height:100px;
+	}
+	
 	.consspan, .prodspan {
 	border:1px solid #000;
 	height:40px;
@@ -122,11 +138,11 @@
 	}
 	
 	.consspan {
-	background:#389C90;
+	background:#1FDA9A;
 	}
 	
 	.prodspan {
-	background:#96858D;
+	background:#F2E394;
 	}
 	
 	.titledesc {
@@ -137,7 +153,7 @@
 	}
 	
 	.imgdesc {
-	border:1px solid #96858D;
+	border:1px solid #F2E394;
 	width:120px;
 	float:left;
 	}
@@ -170,6 +186,109 @@
 	top:10px;
 	}
 	
+	
+	#pieChart {    
+	position:absolute;
+	top:700px;
+	left:100px;
+	width:400px;
+	height: 400px; 
+}
+
+
+
+#lineChart {    
+	position:absolute;
+	top:10px;
+	left:410px;
+	height: 150px;
+}
+
+#barChart {
+	position:absolute;
+	top:800px;
+	left:610px;
+	height: 250px;
+}
+
+div.tooltip {	
+    position: absolute;			
+    text-align: center;			
+    width: 60px;					
+    height: 28px;					
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: lightsteelblue;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;			
+}
+
+
+.slice {
+   font-size: 12pt;
+   font-family: Verdana;
+   fill: white; //svg specific - instead of color
+   font-weight: bold;	
+  		} 
+		
+/*for line chart*/
+.axis path, .axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges; //The shape-rendering property is an SVG attribute, used here to make sure our axis and its tick mark lines are pixel-perfect. 
+}
+
+.line {
+  fill: none;
+  /*stroke: steelblue;*/
+  stroke-width: 3px;
+}
+
+.dot {
+  /*fill: white;*/
+  /*stroke: steelblue;*/
+  stroke-width: 1.5px;
+  }
+				
+
+.axis text {
+    font-family: Verdana;
+    font-size: 11px;
+}
+
+.title {
+	 font-family: Verdana;
+    font-size: 15px;	
+		
+}
+
+.xAxis {
+    font-family: verdana;
+    font-size: 11px;
+    fill: black;
+}  
+
+.yAxis {
+    font-family: verdana;
+    font-size: 11px;
+    fill: white;
+}
+
+  
+table {
+	border-collapse:collapse;
+	border: 0px;	
+	font-family: Verdana;	
+	color: #5C5558;
+	font-size: 12px;
+	text-align: right;			
+}
+
+td {
+	padding-left: 10px;		
+}
+	
 	</style>
   </head>
   <body>
@@ -184,6 +303,7 @@
   var height2=340;
   var width3=600;
   var height3=340;
+  var color3=d3.scale.ordinal().range(["#b2977b", "#6cb15e", "#b15e5e","#f4f12e", "#e8a2a2", "#b98de5", "#82dfb8", "#dfb182",  "#56AE7C",  "#64B98C", "#72C39B", "#80CEAA", "#80CCB3", "#7FC9BD", "#7FC7C6", "#7EC4CF", "#7FBBCF", "#7FB1CF", "#80A8CE", "#809ECE", "#8897CE", "#8F90CD", "#9788CD", "#9E81CC", "#AA81C5", "#B681BE", "#C280B7", "#CE80B0", "#D3779F", "#D76D8F", "#DC647E", "#E05A6D", "#E16167", "#E26962", "#E2705C", "#E37756", "#E38457", "#E39158", "#E29D58", "#E2AA59", "#E0B15B", "#DFB95C", "#DDC05E", "#DBC75F", "#E3CF6D", "#EAD67C", "#F2DE8A"]);
   var color2=["#DCDCDC","#D3D3D3","#C0C0C0","#A9A9A9","#808080","#2F4F4F"];
   var stackheight=height2/6;
   var svg2=d3.select("body").append("svg").attr("class","svg2").attr("width",width2).attr("height",height2);
@@ -201,6 +321,27 @@
   var previousid;
   var previouslvl;
   var centered;
+
+  var gradient2=d3.select(".svg2")
+.append("defs")
+.append("linearGradient")
+    .attr("id", "gradient2")
+    .attr("x1", "0%")
+    .attr("y1", "0%")
+    .attr("x2", "100%")
+    .attr("y2", "100%")
+    .attr("spreadMethod", "pad");	  
+
+	
+gradient2.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", "#1FDA9A")
+    .attr("stop-opacity", 1);	
+	
+gradient2.append("stop")
+    .attr("offset", "50%")
+    .attr("stop-color", "#F2E394")
+    .attr("stop-opacity", 1);
   
   svg3.append("path")
     .datum(graticule)
@@ -278,7 +419,7 @@
 	 previouslvl=-1;
 	
 	svg2.select(nodeid)
-	.style("fill", "#fff");
+	.style("fill", "#A7DBDB");
 	
 	svg2.selectAll(".leafnodes")
 	.style("fill","#2F4F4F");
@@ -319,7 +460,7 @@
 //   .ease("linear")
 	.attr("d", pathstr)
 	.attr("fill","none")
-	.attr("stroke","#B22222")
+	.attr("stroke","#5A6A62")
 	.attr("stroke-width",1);
 	
 	
@@ -344,8 +485,18 @@
 	.on("dblclick", function() {
 	svg2.select("#life")
 	.style("fill", color2[0]);
+	d3.selectAll(".mapdesc").remove();
+	d3.selectAll(".consspan").remove();
+	d3.selectAll(".prodspan").remove();
+	d3.selectAll(".titledesc").remove();
+	d3.selectAll(".imgdesc").remove();
+	d3.selectAll(".otherdesc").remove();
 	svg2.selectAll(".foodpaths").remove();
 	svg2.selectAll(".triangles").remove();
+	
+	for(var noden in foodchain)
+	foodchain[noden].status=0;
+	
 	});
 	
 	
@@ -393,11 +544,8 @@
 	.attr("id",pathid)
 	.attr("class","foodpaths")
 	.attr("d", pathstr)
-//	.transition()
-//    .duration(2000)
-//    .ease("linear")
 	.attr("fill","none")
-	.attr("stroke","#389C90")
+	.attr("stroke","#5A6A62")
 	.attr("stroke-width",1);
 	
 	var pathidanim="#"+pathid;
@@ -422,10 +570,11 @@
 	var targetid="#"+foodchain[nodenamec].eats[i].replace(/ /g,'');
 	
 	svg2.select(pathid)
-	.attr("stroke","#00C4CC");
+	.attr("stroke-width","3")
+	.attr("stroke","url(#gradient2)");
 	
 	svg2.select(targetid)
-	.style("fill","#96858D");
+	.style("fill","#F2E394");
 
 	//animate here
 
@@ -436,9 +585,9 @@
 	return "anims"+nodenamec.replace(/ /g,'')+""+foodchain[nodenamec].eats[i].replace(/ /g,'');
 	})
 	.attr("d","M-5,-2.5 L5,-2.5 L 0,-17.5 z")
-	.attr("stroke","#96858D")
-	.attr("stroke-width","1.06")
-	.style("fill","#389C90");
+	.attr("stroke","#fff")
+	.attr("stroke-width","1")
+	.style("fill","#2F4F4F");
 	var animsid="#anims"+nodenamec.replace(/ /g,'')+""+foodchain[nodenamec].eats[i].replace(/ /g,'');
 	svg2.select(animsid)
 	.append("animateMotion")
@@ -462,7 +611,7 @@
 	
 	}
 	svg2.select(sourceid)
-	.style("fill","#389C90");
+	.style("fill","#1FDA9A");
 	foodchain[nodenamec].status=2;
 	
 	
@@ -483,7 +632,7 @@
 	var pathid="#"+nodenamec.replace(/ /g,'')+""+foodchain[nodenamec].eats[i].replace(/ /g,'');
 	var targetid="#"+foodchain[nodenamec].eats[i].replace(/ /g,'');
 	svg2.select(pathid)
-	.attr("stroke","#B22222")
+	.attr("stroke","#5A6A62")
 	.attr("stroke-width",1);
 	svg2.select(targetid)
 	.style("fill","#2F4F4F");
@@ -512,7 +661,7 @@
 	 previouslvl=levelc;
 	
 	svg2.select(nodeid)
-	.style("fill", "#fff");
+	.style("fill", "#A7DBDB");
 	svg2.selectAll(".foodpaths").remove();
 	svg2.selectAll(".triangles").remove();
 	svg2.selectAll(".leafnodes")
@@ -537,12 +686,9 @@
 	svg2.append("path")
 	.attr("id",pathid)
 	.attr("class","foodpaths")
-//	.transition()
-//    .duration(2000)
-//    .ease("linear")
 	.attr("d", pathstr)
 	.attr("fill","none")
-	.attr("stroke","#B22222")
+	.attr("stroke","#5A6A62")
 	.attr("stroke-width",1);
 	
 	
@@ -580,7 +726,9 @@
 	.attr("class","maplocs")
 	.attr("id",locationid)
 	.attr("r", 4)
-    .attr("fill", "#389C90") 
+    .attr("fill", function() {
+	return color3(foodchain[nodenamec].locations[b]);
+	}) 
     .attr("stroke","#2F4F4F")
 	.attr("transform", function() {
     return "translate(" + projection([foodchain[nodenamec].longitude[b], foodchain[nodenamec].latitude[b]]) + ")";
@@ -600,7 +748,9 @@
 	.attr("class","maplocs")
 	.attr("id",locationid)
 	.attr("r", 4)
-    .attr("fill", "#389C90") 
+    .attr("fill", function() {
+	return color3(foodchain[nodenamec].locations[c]);
+	}) 
     .attr("stroke","#2F4F4F")
 	.attr("transform", function() {
     return "translate(" + projection([foodchain[nodenamec].longitude[c], foodchain[nodenamec].latitude[c]]) + ")";
@@ -621,7 +771,7 @@
 	 return totalpath;
 	 })
 	 .style("fill","none")
-	 .attr("stroke","#96858D")
+	 .attr("stroke","#F2E394")
 	 .attr("stroke-width","1")
 	 .attr("opacity",0);
 	
@@ -665,6 +815,9 @@
 	d3.selectAll(".titledesc").remove();
 	d3.selectAll(".imgdesc").remove();
 	d3.selectAll(".otherdesc").remove();
+	d3.selectAll(".mtitledesc").remove();
+	d3.selectAll(".mdescdesc").remove();
+	d3.selectAll(".mapdesc").remove();
 	
 	d3.select(".stackdesc").append("div")
 	.attr("class","titledesc");
@@ -683,6 +836,7 @@
 	.append("text")
 	.text(foodchain[nodenamec].eats[e]);
 	
+		
 	}
 	}
 	var imgpath="Images/"+nodenamec+".jpg";
@@ -708,6 +862,42 @@
 		
 	d3.select(".linkdesc")
 	.html("<a href='https://en.wikipedia.org/wiki/"+nodenamec+"' class='anchor' target='_blank'>More Info</a>")
+	
+	
+	//map description here ---------------------------------------------------------------------------------------------<
+	d3.select("body").append("svg")
+	.attr("class","mapdesc");
+
+	var xcor=10;
+	var ycor=10;
+	for(var m=0;m<foodchain[nodenamec].locations.length;m++) {
+	var countryname=foodchain[nodenamec].locations[m];
+	
+	d3.select(".mapdesc")
+	.append("rect")
+	.attr("width","10")
+	.attr("x",xcor)
+	.attr("y",ycor)
+	.attr("height","10")
+	.attr("stroke","#000")
+	.attr("stroke-width","1")
+	.attr("fill",function() {
+	return color3(foodchain[nodenamec].locations[m]);
+	});
+	
+	d3.select(".mapdesc")
+	.append("text")
+	.text(countryname)
+	.attr("x",xcor+20)
+	.attr("y",ycor+10);
+	
+	if(m>6)
+	xcor=150;
+	
+	ycor=ycor+30;
+	}
+	
+	
 
 	})
 	.on("dblclick", function() {
@@ -1004,6 +1194,615 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 
   </script>
   <div class="stackdesc"></div>
-  <div class="mapdesc"></div>
+  
+  <div class=".speciesdis">
+  
+  
+  <div id="pieChart"></div>
+    <div id="barChart"></div>  
+    <script type="text/javascript">
+
+var 	formatAsPercentage = d3.format("%"),
+		formatAsPercentage1Dec = d3.format(".1%"),
+		formatAsInteger = d3.format(","),
+		fsec = d3.time.format("%S s"),
+		fmin = d3.time.format("%M m"),
+		fhou = d3.time.format("%H h"),
+		fwee = d3.time.format("%a"),
+		fdat = d3.time.format("%d d"),
+		fmon = d3.time.format("%b")
+		;
+
+/*
+############# PIE CHART ###################
+-------------------------------------------
+*/
+
+
+
+function dsPieChart(){
+
+	var dataset = [
+			{category: "Plants", measure: 0.33},
+	      {category: "Reptiles", measure: 0.14},
+		  {category: "Fishes", measure: 0.28},
+	      {category: "Birds", measure: 0.12},
+	      {category: "Amphibians", measure: 0.07},
+	      {category: "Mammals", measure: 0.06}
+	      ]
+	      ;
+
+	var 	width = 400,
+		   height = 400,
+		   outerRadius = Math.min(width, height) / 2,
+		   innerRadius = outerRadius * .999,   
+		   // for animation
+		   innerRadiusFinal = outerRadius * .5,
+		   innerRadiusFinal3 = outerRadius* .45,
+		   color = d3.scale.category20()    //builtin range of colors
+		   ;
+	    
+	var vis = d3.select("#pieChart")
+	     .append("svg:svg")              //create the SVG element inside the <body>
+	     .data([dataset])                   //associate our data with the document
+	         .attr("width", width)           //set the width and height of our visualization (these will be attributes of the <svg> tag
+	         .attr("height", height)
+	     		.append("svg:g")                //make a group to hold our pie chart
+	         .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")")    //move the center of the pie chart from 0, 0 to radius, radius
+				;
+				
+   var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
+        	.outerRadius(outerRadius).innerRadius(innerRadius);
+   
+   // for animation
+   var arcFinal = d3.svg.arc().innerRadius(innerRadiusFinal).outerRadius(outerRadius);
+	var arcFinal3 = d3.svg.arc().innerRadius(innerRadiusFinal3).outerRadius(outerRadius);
+
+   var pie = d3.layout.pie()           //this will create arc data for us given a list of values
+        .value(function(d) { return d.measure; });    //we must tell it out to access the value of each element in our data array
+
+   var arcs = vis.selectAll("g.slice")     //this selects all <g> elements with class slice (there aren't any yet)
+        .data(pie)                          //associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties) 
+        .enter()                            //this will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
+            .append("svg:g")                //create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
+               .attr("class", "slice")    //allow us to style things in the slices (like text)
+               .on("mouseover", mouseover)
+    				.on("mouseout", mouseout)
+    				.on("click", up)
+    				;
+    				
+        arcs.append("svg:path")
+               .attr("fill", function(d, i) { return color(i); } ) //set the color for each slice to be chosen from the color function defined above
+               .attr("d", arc)     //this creates the actual SVG path using the associated data (pie) with the arc drawing function
+					.append("svg:title") //mouseover title showing the figures
+				   .text(function(d) { return d.data.category + ": " + formatAsPercentage(d.data.measure); });			
+
+        d3.selectAll("g.slice").selectAll("path").transition()
+			    .duration(750)
+			    .delay(10)
+			    .attr("d", arcFinal )
+			    ;
+	
+	 
+	  arcs.filter(function(d) { return d.endAngle - d.startAngle > .2; })
+	  		.append("svg:text")
+	      .attr("dy", ".35em")
+	      .attr("text-anchor", "middle")
+	      .attr("transform", function(d) { return "translate(" + arcFinal.centroid(d) + ")rotate(" + angle(d) + ")"; })
+	      //.text(function(d) { return formatAsPercentage(d.value); })
+	      .text(function(d) { return d.data.category; })
+	      ;
+	   
+	   // Computes the label angle of an arc, converting from radians to degrees.
+		function angle(d) {
+		    var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
+		    return a > 90 ? a - 180 : a;
+		}
+		    
+		
+		// Pie chart title			
+		vis.append("svg:text")
+	     	.attr("dy", ".35em")
+	      .attr("text-anchor", "middle")
+	      .text("Species Distribution")
+	      .attr("class","title")
+	      ;		    
+
+
+		
+	function mouseover() {
+	  d3.select(this).select("path").transition()
+	      .duration(750)
+	        		.attr("d", arcFinal3)
+	        		;
+	}
+	
+	function mouseout() {
+	  d3.select(this).select("path").transition()
+	      .duration(750)
+	        		.attr("d", arcFinal)
+	        		;
+	}
+	
+	function up(d, i) {
+	
+				updateBarChart(d.data.category, color(i));
+				updateLineChart(d.data.category, color(i));
+			 
+	}
+}
+
+dsPieChart();
+
+// Define the div for the tooltip
+var div = d3.select("body").append("div")	
+    .attr("class", "tooltip")				
+    .style("opacity", 0);
+
+var datasetBarChart = [
+{ group: "All", category: "Least Concern", measure: 30334.0000 }, 
+{ group: "All", category: "Threatened", measure: 14856.0000 }, 
+{ group: "All", category: "Extinct", measure: 164.0000 }, 
+{ group: "All", category: "Data Deficient", measure: 4782.0000 }, 
+{ group: "All", category: "Not Evaluated", measure: 39338.0000 }, 
+{ group: "Plants", category: "Least Concern", measure: 842.0000 }, 
+{ group: "Plants", category: "Threatened", measure: 1023.0000 }, 
+{ group: "Plants", category: "Extinct", measure: 12.0000 }, 
+{ group: "Plants", category: "Data Deficient", measure: 75.0000 }, 
+{ group: "Plants", category: "Not Evaluated", measure: 29259.0000 }, 
+{ group: "Reptiles", category: "Least Concern", measure: 7966.0000 }, 
+{ group: "Reptiles", category: "Threatened", measure: 2286.0000 }, 
+{ group: "Reptiles", category: "Extinct", measure: 11.0000 }, 
+{ group: "Reptiles", category: "Data Deficient", measure: 80.0000 }, 
+{ group: "Reptiles", category: "Not Evaluated", measure: 1741.0000 }, 
+{ group: "Fishes", category: "Least Concern", measure: 8970.0000 }, 
+{ group: "Fishes", category: "Threatened", measure: 6552.0000 }, 
+{ group: "Fishes", category: "Extinct", measure: 89.0000 }, 
+{ group: "Fishes", category: "Data Deficient", measure: 2869.0000 }, 
+{ group: "Fishes", category: "Not Evaluated", measure: 6976.0000 }, 
+{ group: "Birds", category: "Least Concern", measure: 7749.0000 }, 
+{ group: "Birds", category: "Threatened", measure: 2068.0000 }, 
+{ group: "Birds", category: "Extinct", measure: 4.0000 }, 
+{ group: "Birds", category: "Data Deficient", measure: 61.0000 }, 
+{ group: "Birds", category: "Not Evaluated", measure: 111.0000 }, 
+{ group: "Amphibians", category: "Least Concern", measure: 1958.0000 }, 
+{ group: "Amphibians", category: "Threatened", measure: 1682.0000 }, 
+{ group: "Amphibians", category: "Extinct", measure: 35.0000 }, 
+{ group: "Amphibians", category: "Data Deficient", measure: 1095.0000 }, 
+{ group: "Amphibians", category: "Not Evaluated", measure: 943.0000 }, 
+{ group: "Mammals", category: "Least Concern", measure: 2849.0000 }, 
+{ group: "Mammals", category: "Threatened", measure: 1246.0000 }, 
+{ group: "Mammals", category: "Extinct", measure: 13.0000 }, 
+{ group: "Mammals", category: "Data Deficient", measure: 602.0000 }, 
+{ group: "Mammals", category: "Not Evaluated", measure: 310.0000 }
+]
+;
+
+// set initial group value
+var group = "All";
+
+function datasetBarChosen(group) {
+	var ds = [];
+	for (x in datasetBarChart) {
+		 if(datasetBarChart[x].group==group){
+		 	ds.push(datasetBarChart[x]);
+		 } 
+		}
+	return ds;
+}
+
+
+function dsBarChartBasics() {
+
+		var margin = {top: 30, right: 5, bottom: 20, left: 50},
+		width = 500 - margin.left - margin.right,
+	   height = 250 - margin.top - margin.bottom,
+		colorBar = d3.scale.category20(),
+		barPadding = 1
+		;
+		
+		return {
+			margin : margin, 
+			width : width, 
+			height : height, 
+			colorBar : colorBar, 
+			barPadding : barPadding
+		}			
+		;
+}
+
+function dsBarChart() {
+
+	var firstDatasetBarChart = datasetBarChosen(group);         	
+	
+	var basics = dsBarChartBasics();
+	
+	var margin = basics.margin,
+		width = basics.width,
+	   height = basics.height,
+		colorBar = basics.colorBar,
+		barPadding = basics.barPadding
+		;
+					
+	var 	xScale = d3.scale.linear()
+						.domain([0, firstDatasetBarChart.length])
+						.range([0, width])
+						;
+						
+	  
+	var yScale = d3.scale.linear()
+		   .domain([0, d3.max(firstDatasetBarChart, function(d) { return d.measure; })])
+		   .range([height, 0])
+		   ;
+	
+	//Create SVG element
+	
+	var svg = d3.select("#barChart")
+			.append("svg")
+		    .attr("width", width + margin.left + margin.right)
+		    .attr("height", height + margin.top + margin.bottom)
+		    .attr("id","barChartPlot")
+		    ;
+	
+	var plot = svg
+		    .append("g")
+		    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+		    ;
+	            
+	plot.selectAll("rect")
+		   .data(firstDatasetBarChart)
+		   .enter()
+		   .append("rect")
+			.attr("x", function(d, i) {
+			    return xScale(i);
+			})
+		   .attr("width", width / firstDatasetBarChart.length - barPadding)   
+			.attr("y", function(d) {
+			    return yScale(d.measure);
+			})  
+			.attr("height", function(d) {
+			    return height-yScale(d.measure);
+			})
+			.attr("fill", "lightgrey")
+			;
+	
+		
+	// Add y labels to plot	
+	
+	plot.selectAll("text")
+	.data(firstDatasetBarChart)
+	.enter()
+	.append("text")
+	.text(function(d) {
+			return formatAsInteger(d3.round(d.measure));
+	})
+	.on("mouseover", function(d) {		
+            div.transition()		
+                .duration(200)		
+                .style("opacity", .9);		
+             div.html(formatAsInteger(d3.round(d.measure)))	
+                .style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px");	
+            })					
+    .on("mouseout", function(d) {		
+            div.transition()		
+                .duration(500)		
+                .style("opacity", 0);	
+        })
+	.attr("text-anchor", "middle")
+	// Set x position to the left edge of each bar plus half the bar width
+	.attr("x", function(d, i) {
+			return (i * (width / firstDatasetBarChart.length)) + ((width / firstDatasetBarChart.length - barPadding) / 2);
+	})
+	.attr("y", function(d) {
+			return yScale(d.measure) + 14;
+	})
+	.attr("class", "yAxis")
+		
+	
+	var xLabels = svg
+		    .append("g")
+		    .attr("transform", "translate(" + margin.left + "," + (margin.top + height)  + ")")
+		    ;
+	
+	xLabels.selectAll("text.xAxis")
+		  .data(firstDatasetBarChart)
+		  .enter()
+		  .append("text")
+		  .text(function(d) { return d.category;})
+		  .attr("text-anchor", "middle")
+			// Set x position to the left edge of each bar plus half the bar width
+						   .attr("x", function(d, i) {
+						   		return (i * (width / firstDatasetBarChart.length)) + ((width / firstDatasetBarChart.length - barPadding) / 2);
+						   })
+		  .attr("y", 15)
+		  .attr("class", "xAxis")
+		  //.attr("style", "font-size: 12; font-family: Helvetica, sans-serif")
+		  ;			
+	 
+	// Title
+	
+	svg.append("text")
+		.attr("x", (width + margin.left + margin.right)/2)
+		.attr("y", 15)
+		.attr("class","title")				
+		.attr("text-anchor", "middle")
+		.text("Conservation Status Breakdown")
+		;
+		    
+
+}
+
+dsBarChart();
+
+ /* ** UPDATE CHART ** */
+ 
+/* updates bar chart on request */
+
+function updateBarChart(group, colorChosen) {
+	
+		var currentDatasetBarChart = datasetBarChosen(group);
+		
+		var basics = dsBarChartBasics();
+	
+		var margin = basics.margin,
+			width = basics.width,
+		   height = basics.height,
+			colorBar = basics.colorBar,
+			barPadding = basics.barPadding
+			;
+		
+		var 	xScale = d3.scale.linear()
+			.domain([0, currentDatasetBarChart.length])
+			.range([0, width])
+			;
+		
+			
+		var yScale = d3.scale.linear()
+	      .domain([0, d3.max(currentDatasetBarChart, function(d) { return d.measure; })])
+	      .range([height,0])
+	      ;
+	      
+	   var svg = d3.select("#barChart svg");
+	      
+	   var plot = d3.select("#barChartPlot")
+	   	.datum(currentDatasetBarChart)
+		   ;
+	
+	  		/* Note that here we only have to select the elements - no more appending! */
+	  	plot.selectAll("rect")
+	      .data(currentDatasetBarChart)
+	      .transition()
+			.duration(750)
+			.attr("x", function(d, i) {
+			    return xScale(i);
+			})
+		   .attr("width", width / currentDatasetBarChart.length - barPadding)   
+			.attr("y", function(d) {
+			    return yScale(d.measure);
+			})  
+			.attr("height", function(d) {
+			    return height-yScale(d.measure);
+			})
+			.attr("fill", colorChosen)
+			;
+		
+		plot.selectAll("text.yAxis") // target the text element(s) which has a yAxis class defined
+			.data(currentDatasetBarChart)
+			.transition()
+			.duration(750)
+		   .attr("text-anchor", "middle")
+		   .attr("x", function(d, i) {
+		   		return (i * (width / currentDatasetBarChart.length)) + ((width / currentDatasetBarChart.length - barPadding) / 2);
+		   })
+		   .attr("y", function(d) {
+		   		return yScale(d.measure) + 14;
+		   })
+		   .text(function(d) {
+				return formatAsInteger(d3.round(d.measure));
+		   })
+		   .attr("class", "yAxis")					 
+		;		
+
+		svg.selectAll("text.title") // target the text element(s) which has a title class defined
+			.attr("x", (width + margin.left + margin.right)/2)
+			.attr("y", 15)
+			.attr("class","title")				
+			.attr("text-anchor", "middle")
+			.text(group + " Conservation Status Breakdown")
+		;
+}
+
+// set initial category value
+var group = "All";
+
+function datasetLineChartChosen(group) {
+	var ds = [];
+	for (x in datasetLineChart) {
+		 if(datasetLineChart[x].group==group){
+		 	ds.push(datasetLineChart[x]);
+		 } 
+		}
+	return ds;
+}
+
+function dsLineChartBasics() {
+
+	var margin = {top: 20, right: 10, bottom: 0, left: 50},
+	    width = 500 - margin.left - margin.right,
+	    height = 150 - margin.top - margin.bottom
+	    ;
+		
+		return {
+			margin : margin, 
+			width : width, 
+			height : height
+		}			
+		;
+}
+
+
+function dsLineChart() {
+
+	var firstDatasetLineChart = datasetLineChartChosen(group);    
+	
+	var basics = dsLineChartBasics();
+	
+	var margin = basics.margin,
+		width = basics.width,
+	   height = basics.height
+		;
+
+	var xScale = d3.scale.linear()
+	    .domain([0, firstDatasetLineChart.length-1])
+	    .range([0, width])
+	    ;
+
+	var yScale = d3.scale.linear()
+	    .domain([0, d3.max(firstDatasetLineChart, function(d) { return d.measure; })])
+	    .range([height, 0])
+	    ;
+	
+	var line = d3.svg.line()
+	    //.x(function(d) { return xScale(d.category); })
+	    .x(function(d, i) { return xScale(i); })
+	    .y(function(d) { return yScale(d.measure); })
+	    ;
+	
+	var svg = d3.select("#lineChart").append("svg")
+	    .datum(firstDatasetLineChart)
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+	    // create group and move it so that margins are respected (space for axis and title)
+	    
+	var plot = svg
+	    .append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+	    .attr("id", "lineChartPlot")
+	    ;
+
+		/* descriptive titles as part of plot -- start */
+	var dsLength=firstDatasetLineChart.length;
+
+	plot.append("text")
+		.text(firstDatasetLineChart[dsLength-1].measure)
+		.attr("id","lineChartTitle2")
+		.attr("x",width/2)
+		.attr("y",height/2)	
+		;
+	/* descriptive titles -- end */
+	    
+	plot.append("path")
+	    .attr("class", "line")
+	    .attr("d", line)	
+	    // add color
+		.attr("stroke", "lightgrey")
+	    ;
+	  
+	plot.selectAll(".dot")
+	    .data(firstDatasetLineChart)
+	  	 .enter().append("circle")
+	    .attr("class", "dot")
+	    //.attr("stroke", function (d) { return d.measure==datasetMeasureMin ? "red" : (d.measure==datasetMeasureMax ? "green" : "steelblue") } )
+	    .attr("fill", function (d) { return d.measure==d3.min(firstDatasetLineChart, function(d) { return d.measure; }) ? "red" : (d.measure==d3.max(firstDatasetLineChart, function(d) { return d.measure; }) ? "green" : "white") } )
+	    //.attr("stroke-width", function (d) { return d.measure==datasetMeasureMin || d.measure==datasetMeasureMax ? "3px" : "1.5px"} )
+	    .attr("cx", line.x())
+	    .attr("cy", line.y())
+	    .attr("r", 3.5)
+	    .attr("stroke", "lightgrey")
+	    .append("title")
+	    .text(function(d) { return d.category + ": " + formatAsInteger(d.measure); })
+	    ;
+
+	svg.append("text")
+		.text("Line Graph")
+		.attr("id","lineChartTitle1")	
+		.attr("x",margin.left + ((width + margin.right)/2))
+		.attr("y", 10)
+		;
+
+}
+
+dsLineChart();
+
+
+ /* ** UPDATE CHART ** */
+ 
+/* updates bar chart on request */
+function updateLineChart(group, colorChosen) {
+
+	var currentDatasetLineChart = datasetLineChartChosen(group);   
+
+	var basics = dsLineChartBasics();
+	
+	var margin = basics.margin,
+		width = basics.width,
+	   height = basics.height
+		;
+
+	var xScale = d3.scale.linear()
+	    .domain([0, currentDatasetLineChart.length-1])
+	    .range([0, width])
+	    ;
+
+	var yScale = d3.scale.linear()
+	    .domain([0, d3.max(currentDatasetLineChart, function(d) { return d.measure; })])
+	    .range([height, 0])
+	    ;
+	
+	var line = d3.svg.line()
+    .x(function(d, i) { return xScale(i); })
+    .y(function(d) { return yScale(d.measure); })
+    ;
+
+   var plot = d3.select("#lineChartPlot")
+   	.datum(currentDatasetLineChart)
+	   ;
+	   
+	/* descriptive titles as part of plot -- start */
+	var dsLength=currentDatasetLineChart.length;
+	
+	plot.select("text")
+		.text(currentDatasetLineChart[dsLength-1].measure)
+		;
+	/* descriptive titles -- end */
+	   
+	plot
+	.select("path")
+		.transition()
+		.duration(750)			    
+	   .attr("class", "line")
+	   .attr("d", line)	
+	   // add color
+		.attr("stroke", colorChosen)
+	   ;
+	   
+	var path = plot
+		.selectAll(".dot")
+	   .data(currentDatasetLineChart)
+	   .transition()
+		.duration(750)
+	   .attr("class", "dot")
+	   .attr("fill", function (d) { return d.measure==d3.min(currentDatasetLineChart, function(d) { return d.measure; }) ? "red" : (d.measure==d3.max(currentDatasetLineChart, function(d) { return d.measure; }) ? "green" : "white") } )
+	   .attr("cx", line.x())
+	   .attr("cy", line.y())
+	   .attr("r", 3.5)
+	   // add color
+		.attr("stroke", colorChosen)
+	   ;
+	   
+	   path
+	   .selectAll("title")
+	   .text(function(d) { return d.category + ": " + formatAsInteger(d.measure); })	 
+	   ;  
+
+}
+
+    </script>
+  
+  
+  
+  </div>
+  
   </body>
 </html>
