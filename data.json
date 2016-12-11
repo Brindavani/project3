@@ -135,6 +135,9 @@
                },
                   {
            "name": "Monkey",
+		   "locations": ["India"],
+		   "latitude": [20.5937],
+		   "longitude": [78.9629],
            "description":  "",
 		   "eats": ["Scorpion","Termite","Banana"],
            "free": true
@@ -177,6 +180,10 @@
                   {
            "name": "Whale",
            "description":  "",
+		   "migrating": true,
+		   "locations": ["Bay","Pacific","Arctic"],
+		   "latitude": [13.5317,8.7832,65.2482],
+		   "longitude": [87.5396,124.5085,60.4621],
            "free": true
                },
                   {
