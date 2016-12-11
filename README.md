@@ -29,6 +29,12 @@ To visualize the network that we have created, click [here](https://bharathkande
 
 We have created this very informative tool to depict how the balance in prey-predator relationship is maintained and to show the natural behavior of all the living things in the network. On the left side of the screen, we visualize the relationship(Predator-Prey) between the living things by using links to connect the related living things. On the right side of the screen, we primarily intend to visualize the migration paths of the migratory animals (Mammals, Birds, Insects and Fishes etc.). The application also displays the top frequent places where a particular animal is found the most.
 
+## Data sources
+
+http://www.arkive.org
+https://www.worldwildlife.org
+http://www.onezoom.org/
+
 ## Network on a stack Diagram
 
 The living Organisms are broadly categorized into two categories i.e. Flora (Plant Life) and Fauna (Animal Life). These are further divided into several categories and these are clearly visualized using the linearly aligned Stack diagram. The complete hierarchy of living organisms along with the examples is displayed in the stack diagram. The examples are displayed as leaf nodes. The Stack diagram has several features that makes the visualization better.
