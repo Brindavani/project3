@@ -14,13 +14,13 @@ To visualize the network that we have created, click [here](https://bharathkande
 
 - [Overview of the Project](#Overview-of-the-project)
 - [Data sources](#data-sources)
-- [Network on a Stack diagram](#Network-on-a-stack)
-- [Network on a Geographical Map](#Network-on-a-Geographical-Map)
-- [Interesting Findings](#Interesting-Findings)
-- [Duties of each Student](#Duties-of-each-Student)
-- [Software used for developing application](#Software-used-for-developing-application)
-- [Steps to run the application](#Steps-to-run-the-application)
-- [Acknowledgement](#Acknowledgement)
+- [Network on a Stack diagram](#network-on-a-stack)
+- [Network on a Geographical Map](#network-on-a-geographical-map)
+- [Interesting Findings](#interesting-findings)
+- [Duties of each Student](#duties-of-each-student)
+- [Software used for developing application](#software-used-for-developing-application)
+- [Steps to run the application](#steps-to-run-the-application)
+- [Acknowledgement](#acknowledgement)
 
 
 
