@@ -12,46 +12,48 @@ To visualize the network that we have created, click [here](https://bharathkande
 
 ## Table of contents
 
--	[Overview of the Project](#Overview-of-the-project)
--	[Network on a Stack diagram](#Network-on-a-stack)
--	[Network on a Geographical Map](#Network-on-a-Geographical-Map)
--	[Interesting Findings](#Interesting-Findings)
--	[Duties of each Student](#Duties-of-each-Student)
--	[Software used for developing application](#Software-used-for-developing-application)
--	[Steps to run the application](#Steps-to-run-the-application)
--	[Acknowledgement](#Acknowledgement)
+- [Overview of the Project](#Overview-of-the-project)
+- [Data sources](#data-sources)
+- [Network on a Stack diagram](#Network-on-a-stack)
+- [Network on a Geographical Map](#Network-on-a-Geographical-Map)
+- [Interesting Findings](#Interesting-Findings)
+- [Duties of each Student](#Duties-of-each-Student)
+- [Software used for developing application](#Software-used-for-developing-application)
+- [Steps to run the application](#Steps-to-run-the-application)
+- [Acknowledgement](#Acknowledgement)
 
 
 
-## Overview of the project
+## Overview of the Project
 
 **screenshot of the entire project**
 
 We have created this very informative tool to depict how the balance in prey-predator relationship is maintained and to show the natural behavior of all the living things in the network. On the left side of the screen, we visualize the relationship(Predator-Prey) between the living things by using links to connect the related living things. On the right side of the screen, we primarily intend to visualize the migration paths of the migratory animals (Mammals, Birds, Insects and Fishes etc.). The application also displays the top frequent places where a particular animal is found the most.
 
 ## Data sources
+We have researched and gathered information from the following websites,
+http://www.arkive.org ,
+https://www.worldwildlife.org ,
+http://www.onezoom.org/ .
 
-http://www.arkive.org
-https://www.worldwildlife.org
-http://www.onezoom.org/
-
-## Network on a stack Diagram
+## Network on a Stack diagram
 
 The living Organisms are broadly categorized into two categories i.e. Flora (Plant Life) and Fauna (Animal Life). These are further divided into several categories and these are clearly visualized using the linearly aligned Stack diagram. The complete hierarchy of living organisms along with the examples is displayed in the stack diagram. The examples are displayed as leaf nodes. The Stack diagram has several features that makes the visualization better.
 The features that are included in the Stack diagram are listed below:
-1. When hovered over a node, the information about that node is displayed. 
-2. When hovered over the leaf nodes, the images are displayed.
-3. Predator-Prey relationship is also visualized in the network.
-   When the leaf node is clicked, the prey of that node is shown.
-4. When the leaf node is clicked, along with the prey it also shows the brief   information about that organism. The User can be redirected to the Wikipedia page about that node If “More Info” is needed.
-5. If more than one predator-prey relationship is displayed, the user can click one leaf node to see the prey of that node.
-In the above case the relationship is shown using Animation.
-6. Instead of selecting each leaf node separately to see the predator-prey relationship, the user can click on above node/hierarchy.
-7. The Map is integrated with the stack diagram to show the below features.
-a. The migrating birds are shown in the map using animation.
-b. When a leaf node is selected, the top 10 locations in which that animal’s population is dense are displayed.
 
-** Brindavani’s data**
+- When hovered over a node, the information about that node is displayed. 
+- When hovered over the leaf nodes, the images are displayed.
+- Predator-Prey relationship is also visualized in the network.
+   When the leaf node is clicked, the prey of that node is shown.
+- When the leaf node is clicked, along with the prey it also shows the brief   information about that organism. The User can be redirected to the Wikipedia page about that node If “More Info” is needed.
+- If more than one predator-prey relationship is displayed, the user can click one leaf node to see the prey of that node.In the above case the relationship is shown using Animation.
+
+- Instead of selecting each leaf node separately to see the predator-prey relationship, the user can click on above node/hierarchy.
+- The Map is integrated with the stack diagram to show the below features.
+ - The migrating birds are shown in the map using animation.
+ -  When a leaf node is selected, the top 10 locations in which that animal’s population is dense are displayed.
+
+
 
 ## Network on a Geographical Map
 
@@ -98,7 +100,7 @@ We have used the following software for implementing ,
 
 There are two methods to run this application,
 
-1.	Open any web browser and type in the url – “https://bharathkande.github.io/project3/“ and hit send for direct access with no modifying rights.
+1.	Open any web browser and type in the url – “ https://bharathkande.github.io/project3/ “ and hit send for direct access with no modifying rights.
 2.	Find the repository called “project3” on github by typing the name on in the repository search bar. Download the repository and run the main html file called, “index.html”.
 
 
