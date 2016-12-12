@@ -1,18 +1,208 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <title>Network visualization</title>
   <link rel='shortcut icon' href='Images/nature.ico' type='image/x-icon'/ >
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://d3js.org/d3.v3.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://d3js.org/topojson.v1.min.js"></script>
-<!--	<script src="http://d3js.org/d3.v2.js"></script> -->
     <script src="d3.geo.projection.min.js"></script>
 	<style>
+	body{
+padding:0;
+margin:0;
+}
+
+.topdiv {
+position:fixed;
+z-index:1;
+top:0;
+left:0;
+width:100%;
+height:6%;
+background:#DFDBD1;
+}
+
+.top1 {
+letter-spacing:3px;
+word-spacing:3px;
+font-family:segoe ui;
+font-size:16px;
+font-weight:bold;
+position:absolute;
+top:20%;
+left:100px;
+}
+
+.upldimg {
+background:#555;
+position:absolute;
+top:0px;
+left:94%;
+width:6%;
+height:100%;
+}
+
+.upldimg img {
+width:33%;
+height:55%;
+margin:auto;
+position:absolute;
+top:20%;
+left:8%;
+-webkit-transition: transform 1s; /* For Safari 3.1 to 6.0 */
+    transition: transform 1s;
+cursor:pointer;
+}
+
+.upldimg:hover {
+background:#222;
+}
+
+.upldimg img:hover {
+-ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+}
+
+.leftdiv {
+z-index:1;
+position:fixed;
+top:0;
+left:0;
+width:3%;
+height:100%;
+background:#DFDBD1;
+color:#555;
+font-family:segoe ui,sans-serif;
+
+}
+
+.left1 {
+position:absolute;
+left:-60px;
+top:42%;
+font-size:13px;
+letter-spacing: 2px;
+transform: rotate(-90deg);
+-webkit-transform: rotate(-90deg);
+-moz-transform: rotate(-90deg);
+-ms-transform: rotate(-90deg);
+-o-transform: rotate(-90deg);
+}
+
+.rightdiv {
+z-index:1;
+position:fixed;
+top:0;
+left:97%;
+width:3%;
+height:100%;
+background:#DFDBD1;
+}
+
+.bottomdiv {
+z-index:1;
+position:fixed;
+top:94%;
+left:0;
+width:100%;
+height:6%;
+background:#DFDBD1;
+}
+
+.theme {
+position:fixed;
+top:6%;
+left:3%;
+width:94%;
+height:88%;
+min-height: 500px;
+background-image: url("Images/b5.jpg");
+background-size:100% 100%;
+}
+
+.main {
+position:absolute;
+top:6%;
+left:3%;
+width:94%;
+min-height:2000px;
+background:#999;/* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(rgba(9,9,9,0), rgba(9,9,9,0.2),rgba(9,9,9,1), rgba(9,9,9,1), rgba(9,9,9,1),rgba(9,9,9,1)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(rgba(9,9,9,0), rgba(9,9,9,0.2),rgba(9,9,9,1), rgba(9,9,9,1), rgba(9,9,9,1),rgba(9,9,9,1)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(rgba(9,9,9,0), rgba(9,9,9,0.2), rgba(9,9,9,1),rgba(9,9,9,1), rgba(9,9,9,1),rgba(9,9,9,1)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(rgba(9,9,9,0), rgba(9,9,9,0.2), rgba(9,9,9,1),rgba(9,9,9,1), rgba(9,9,9,1),rgba(9,9,9,1)); /* Standard syntax (must be last) */
+}
+
+.maintitle {
+//border:2px solid #fff;
+width:350px;
+height:170px;
+color:#eee;
+font-family:segoe ui;
+font-size:40px;
+font-weight:bold;
+letter-spacing:5px;
+position:absolute;
+top:100px;
+left:850px;
+text-align:center;
+text-shadow: 0px 0px 10px #fff;
+opacity:0.6;
+}
+
+#menuimg {
+position:absolute;
+left:3%;
+top:0;
+}
+
+#scroll {
+cursor:pointer;
+position:absolute;
+left:50%;
+top:25%;
+height:25px;
+width:25px;
+opacity:0.5;
+-webkit-animation-name: scrolldown; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+    animation-name: scrolldown;
+	animation-delay: 2s;
+    animation-duration: 3s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes scrolldown {
+    0% {top: 25%;}
+    50% {top: 22%;}
+	100% {top: 25%;}
+}
+
+/* Standard syntax */
+@keyframes scrolldown {
+    0% {top: 25%;}
+    50% {top: 22%;}
+	100% {top: 25%;}
+}
+/*
+.networkdiv {
+border:2px solid #fff;
+width:100%;
+height:2000px;
+position:absolute;
+top:700px;
+left:0px;
+}
+*/	
 	.svg2 {
-	margin-left:50px;
-	margin-top:50px;
+	position:absolute;
+	top:800px;
+	left:50px;
 //	cursor: url('Images/nature.ico'), auto;
 	}
 	
@@ -43,7 +233,7 @@
 	
 	.svg3 {
 		position:absolute;
-		top:58px;
+		top:800px;
 		left:670px;
 		margin: 0 auto;
 		display: inherit;
@@ -98,23 +288,25 @@
 	
 	.stackdesc, .mapdesc {
 	position:absolute;
-	top:400px;
+	top:1150px;
 	width:600px;
 	height:200px;
-	border:1px solid #000;
 	}
 	
 	.stackdesc {
 	left:50px;
-	z-index:5;
+	color:#f7f7f7;
+//	box-shadow:0px 0px 5px #f6f6f6;
 	}
 	
 	.mapdesc {
+	color:#f6f6f6;
 	left:670px;
+//	box-shadow:0px 0px 5px #f6f6f6;
 	}
 	
 	.mtitledesc, .mdescdesc {
-	border:1px solid red;
+//	border:1px solid red;
 	width:500px;
 	
 	}
@@ -129,67 +321,98 @@
 	}
 	
 	.consspan, .prodspan {
-	border:1px solid #000;
-	height:40px;
-	padding:5px 5px 5px 5px;
-	font-size:16px;
-	letter-spacing:1px;
+	border:1px solid #262626;
+	 color:#f6f6f6;
+	height:35px;
+	padding:3px 5px 3px 5px;
+	font-size:14px;
+//	font-weight:bold;
+//	line-height:40px;
 	font-family:segoe ui;
+//	z-index:12;
 	}
 	
 	.consspan {
-	background:#1FDA9A;
+	border-radius:0px 10px 10px 0px;
+	box-shadow:0px 0px 2px #f6f6f6;
+	background:#7aa916;
 	}
 	
 	.prodspan {
-	background:#F2E394;
+	border-radius:10px 10px 10px 10px;
+	box-shadow:0px 0px 2px #f6f6f6;
+	background:#3993d6;
+	margin-left:7px;
 	}
 	
 	.titledesc {
 	padding-top:10px;
 	padding-left:10px;
-	border:1px solid #000;
 	height:30px;
+//	z-index:11;
 	}
 	
 	.imgdesc {
-	border:1px solid #F2E394;
 	width:120px;
+//	z-index:15;
 	float:left;
+	margin-left:10px;
+	box-shadow:0px 0px 5px #f6f6f6;
+	border:1px solid #262626;
 	}
 	
 	.otherdesc {
-	border:1px solid green;
-	width:470px;
-	float:right;
+	width:400px;
+	float:left;
+//	z-index:15;
 	height:150px;
 	}
 	
 	.descdesc {
-	border:1px solid pink;
+	color:#f6f6f6;
+//	z-index:15;
+	font-weight:bold;
+	font-family:segoe ui;
+	font-size: 12px;
 	height:50px;
-	width:450px;
+	width:400px;
+	padding-top:10px;
+	padding-left:30px;
 	}
 	
 	.linkdesc {
 	width:150px;
+//	z-index:15;
 	height:50px;
-	width:450px;
+	width:400px;
 	padding:10px;
-	border:1px solid blue;
+	font-family:segoe ui;
+	font-size:14px;
 	}
 	
 	.anchor {
-	border:1px solid tomato;
+//	z-index:15;
+	text-decoration:none;
+	color:#f6f6f6;
+	padding:10px;
+	border:1px solid #f6f6f6;
 	position:relative;
 	left:170px;
 	top:10px;
+	box-shadow:0px 0px 5px #f6f6f6;
+	}
+	
+	.anchor:hover {
+	color:#262626;
+	font-weight:bold;
+	background:#f6f6f6;
+	font-size:13px;
 	}
 	
 	
 	#pieChart {    
 	position:absolute;
-	top:700px;
+	top:1430px;
 	left:100px;
 	width:400px;
 	height: 400px; 
@@ -206,7 +429,7 @@
 
 #barChart {
 	position:absolute;
-	top:800px;
+	top:1530px;
 	left:610px;
 	height: 250px;
 }
@@ -292,13 +515,26 @@ td {
 	</style>
   </head>
   <body>
-<!--  <img id="image" src="Images/nature.ico"/> -->
+<div class="topdiv">
+<img src="Images/menu.png" id="menuimg" alt="Smiley face" height="42" width="42">
+<span class="top1">Network Visualization</span>
+<span class='upldimg'><img src="Images/upload.png" alt="upload"></span>
+</div>
+<div class="leftdiv">
+<div class="left1">Network&nbsp;Visualization</div>
+</div>
+<div class="rightdiv"></div>
+<div class="bottomdiv"></div>
+<div class="theme"></div>
+<div class="main">
+<div class="maintitle">
+Life<br>on<br>Earth
+</div>
+<a href="#"><img id="scroll" src="Images/img2.png" alt="Scroll Down"/></a>
+
+  
   <script>
- /* 
-  $(document).mousemove(function(e){
-    $("#image").css({left:e.pageX+20, top:e.pageY+20});
-});
-  */
+
   var width2=600;
   var height2=340;
   var width3=600;
@@ -321,7 +557,7 @@ td {
   var previousid;
   var previouslvl;
   var centered;
-
+  
   var gradient2=d3.select(".svg2")
 .append("defs")
 .append("linearGradient")
@@ -335,12 +571,12 @@ td {
 	
 gradient2.append("stop")
     .attr("offset", "0%")
-    .attr("stop-color", "#1FDA9A")
+    .attr("stop-color", "#7aa916")
     .attr("stop-opacity", 1);	
 	
 gradient2.append("stop")
     .attr("offset", "50%")
-    .attr("stop-color", "#F2E394")
+    .attr("stop-color", "#3993d6")
     .attr("stop-opacity", 1);
   
   svg3.append("path")
@@ -574,7 +810,7 @@ gradient2.append("stop")
 	.attr("stroke","url(#gradient2)");
 	
 	svg2.select(targetid)
-	.style("fill","#F2E394");
+	.style("fill","#3993d6");
 
 	//animate here
 
@@ -611,7 +847,7 @@ gradient2.append("stop")
 	
 	}
 	svg2.select(sourceid)
-	.style("fill","#1FDA9A");
+	.style("fill","#7aa916");
 	foodchain[nodenamec].status=2;
 	
 	
@@ -650,6 +886,17 @@ gradient2.append("stop")
 	}
 	}
 	else if(ifchildc==true) {
+	
+	d3.selectAll(".consspan").remove();
+	d3.selectAll(".prodspan").remove();
+	d3.selectAll(".titledesc").remove();
+	d3.selectAll(".imgdesc").remove();
+	d3.selectAll(".otherdesc").remove();
+	d3.selectAll(".mtitledesc").remove();
+	d3.selectAll(".mdescdesc").remove();
+	d3.selectAll(".mapdesc").remove();
+	d3.selectAll(".stackdesc").remove();
+	
 	if(previousid!=null) {
 	svg2.select(previousid)
 	.style("fill", function() {
@@ -747,7 +994,7 @@ gradient2.append("stop")
 	svg3.append("circle")
 	.attr("class","maplocs")
 	.attr("id",locationid)
-	.attr("r", 4)
+	.attr("r", 3)
     .attr("fill", function() {
 	return color3(foodchain[nodenamec].locations[c]);
 	}) 
@@ -771,7 +1018,7 @@ gradient2.append("stop")
 	 return totalpath;
 	 })
 	 .style("fill","none")
-	 .attr("stroke","#F2E394")
+	 .attr("stroke","#3993d6")
 	 .attr("stroke-width","1")
 	 .attr("opacity",0);
 	
@@ -793,7 +1040,7 @@ gradient2.append("stop")
 	.attr("id",function(){
 	return "animationin";
 	})
-	.attr("dur","10s")
+	.attr("dur","20s")
 	.attr("repeatCount","indefinite");
 	
 	var animationinid="#animationin";
@@ -818,6 +1065,9 @@ gradient2.append("stop")
 	d3.selectAll(".mtitledesc").remove();
 	d3.selectAll(".mdescdesc").remove();
 	d3.selectAll(".mapdesc").remove();
+	
+	d3.select("body").append("div")
+	.attr("class","stackdesc");
 	
 	d3.select(".stackdesc").append("div")
 	.attr("class","titledesc");
@@ -866,7 +1116,8 @@ gradient2.append("stop")
 	
 	//map description here ---------------------------------------------------------------------------------------------<
 	d3.select("body").append("svg")
-	.attr("class","mapdesc");
+	.attr("class","mapdesc")
+	.style("color","#fff");
 
 	var xcor=10;
 	var ycor=10;
@@ -879,7 +1130,7 @@ gradient2.append("stop")
 	.attr("x",xcor)
 	.attr("y",ycor)
 	.attr("height","10")
-	.attr("stroke","#000")
+	.attr("stroke","#aaa")
 	.attr("stroke-width","1")
 	.attr("fill",function() {
 	return color3(foodchain[nodenamec].locations[m]);
@@ -889,19 +1140,50 @@ gradient2.append("stop")
 	.append("text")
 	.text(countryname)
 	.attr("x",xcor+20)
-	.attr("y",ycor+10);
-	
-	if(m>6)
-	xcor=150;
+	.attr("y",ycor+10)
+	.attr("fill","#f6f6f6");
 	
 	ycor=ycor+30;
+	
+	if(m==6) {
+	xcor=150;
+	ycor=10;
+	}
 	}
 	
 	
 
 	})
 	.on("dblclick", function() {
-	/*alert("doubleclick");*/
+	if(ifchildc==false) { // leaf nodes
+	
+	var leafid="#"+nodenamec.replace(/ /g,'');
+	
+	}
+	else if(ifchildc=true) { // non- leaf nodes
+		
+		d3.selectAll(".mapdesc").remove();
+	d3.selectAll(".consspan").remove();
+	d3.selectAll(".prodspan").remove();
+	d3.selectAll(".titledesc").remove();
+	d3.selectAll(".imgdesc").remove();
+	d3.selectAll(".otherdesc").remove();
+	svg2.selectAll(".foodpaths").remove();
+	svg2.selectAll(".triangles").remove();
+	
+
+		for(var noden in foodchain)
+		foodchain[noden].status=0;
+		
+	var rectid="#"+nodenamec.replace(/ /g,'');	
+	svg2.select(rectid)
+	.style("fill", function() {
+	return color2[levelc+1];
+	});
+	
+	defaultdesc();
+	
+	}
 	})
 	.on("mouseover", function() {
 	var imgsrc="Images/"+nodenamec+".jpg";
@@ -1059,7 +1341,6 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 	
 	
 	if(!(json.children[j].children[k].children[l].children[m].children)) {
-	//push json.children[j].children[k].children[l].children[m].name
 	
 	childarr[json.children[j].name].push(json.children[j].children[k].children[l].children[m].name);
 	childarr[json.children[j].children[k].name].push(json.children[j].children[k].children[l].children[m].name);
@@ -1193,7 +1474,7 @@ lvltotal[4]=lvltotal[4]+json.children[j].children[k].children[l].children[m].chi
 
 
   </script>
-  <div class="stackdesc"></div>
+  
   
   <div class=".speciesdis">
   
@@ -1306,6 +1587,7 @@ function dsPieChart(){
 	      .attr("text-anchor", "middle")
 	      .text("Species Distribution")
 	      .attr("class","title")
+		  .attr("fill","#f6f6f6")
 	      ;		    
 
 
@@ -1510,6 +1792,8 @@ function dsBarChart() {
 		  .enter()
 		  .append("text")
 		  .text(function(d) { return d.category;})
+		  .attr("stroke","#f6f6f6")
+		  .attr("stroke-width","0.5")
 		  .attr("text-anchor", "middle")
 			// Set x position to the left edge of each bar plus half the bar width
 						   .attr("x", function(d, i) {
@@ -1528,6 +1812,7 @@ function dsBarChart() {
 		.attr("class","title")				
 		.attr("text-anchor", "middle")
 		.text("Conservation Status Breakdown")
+		.attr("fill","#f6f6f6")
 		;
 		    
 
@@ -1664,7 +1949,6 @@ function dsLineChart() {
 	    ;
 	
 	var line = d3.svg.line()
-	    //.x(function(d) { return xScale(d.category); })
 	    .x(function(d, i) { return xScale(i); })
 	    .y(function(d) { return yScale(d.measure); })
 	    ;
@@ -1673,7 +1957,6 @@ function dsLineChart() {
 	    .datum(firstDatasetLineChart)
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
-	    // create group and move it so that margins are respected (space for axis and title)
 	    
 	var plot = svg
 	    .append("g")
@@ -1681,7 +1964,6 @@ function dsLineChart() {
 	    .attr("id", "lineChartPlot")
 	    ;
 
-		/* descriptive titles as part of plot -- start */
 	var dsLength=firstDatasetLineChart.length;
 
 	plot.append("text")
@@ -1690,12 +1972,10 @@ function dsLineChart() {
 		.attr("x",width/2)
 		.attr("y",height/2)	
 		;
-	/* descriptive titles -- end */
 	    
 	plot.append("path")
 	    .attr("class", "line")
-	    .attr("d", line)	
-	    // add color
+	    .attr("d", line)
 		.attr("stroke", "lightgrey")
 	    ;
 	  
@@ -1703,9 +1983,7 @@ function dsLineChart() {
 	    .data(firstDatasetLineChart)
 	  	 .enter().append("circle")
 	    .attr("class", "dot")
-	    //.attr("stroke", function (d) { return d.measure==datasetMeasureMin ? "red" : (d.measure==datasetMeasureMax ? "green" : "steelblue") } )
 	    .attr("fill", function (d) { return d.measure==d3.min(firstDatasetLineChart, function(d) { return d.measure; }) ? "red" : (d.measure==d3.max(firstDatasetLineChart, function(d) { return d.measure; }) ? "green" : "white") } )
-	    //.attr("stroke-width", function (d) { return d.measure==datasetMeasureMin || d.measure==datasetMeasureMax ? "3px" : "1.5px"} )
 	    .attr("cx", line.x())
 	    .attr("cy", line.y())
 	    .attr("r", 3.5)
@@ -1800,9 +2078,10 @@ function updateLineChart(group, colorChosen) {
 
     </script>
   
+ 
   
-  
-  </div>
-  
+</div>
+</div>
+
   </body>
 </html>
