@@ -1,22 +1,22 @@
 {
  "name": "",
- "leafs": 121,
+ "leafs": 129,
  "children": [
    {
     "name": "Fauna",
-	"leafs": 76,
+	"leafs": 84,
     "free": true,
     "description": "Animal life of any particular region or time",
     "children": [
      {
       "name": "Vertebrates",
-	  "leafs": 50,
+	  "leafs": 57,
       "description": "Oraganisms that have vertebral column",
       "free": true,
       "children": [
        {
         "name": "Reptiles",
-		"leafs": 10,
+		"leafs": 11,
         "description": "Vertebrates that have four limbs",
         "url": "https://datawrapper.de/",
         "free": true,
@@ -27,6 +27,19 @@
            "description": "" ,
            "free": true
                },
+			   {
+                
+            "name": "Leatherback Turtle",
+              "description":"",
+                   "locations": ["Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean"],
+                   "latitude": [-2.932069,15.845105,37.343959,42.204107,29.123373,11.059821,-2.932069,-2.932069],
+                   "longitude":[135.000000,-179.296875,-124.453125,-125.156250,-158.554688,165.937500,137.460938,135.000000],
+                   "distance":"20000",
+                   "eats": "",
+                   "free": true,
+				   "migrating": true
+               },
+			   
 			{
                "name": "Aeolin Wall Lizard",
                "description": "" ,
@@ -143,7 +156,7 @@
        },
        {
         "name": "Birds",
-		"leafs": 10,
+		"leafs": 13,
         "description": "Vertebrates characterised by wings,beaked-jaws",
         "url": "https://plot.ly/",
         "free": true,
@@ -153,6 +166,41 @@
            "description": "" ,
            "free": true
                },
+			   {
+            "name": "Swainsons Hawk",
+                   "description": "",
+                   "locations":  ["Argentina","Mexico","California","California","Mexico","Argentina"],
+                   "latitude": [-32.036020,23.795398,40.905210,40.734771,23.795398,-32.036020],
+                   "longitude": [-62.578125,-106.171875,-121.992188,-119.707031,-106.171875,-62.578125],
+                   "eats":["Insects","Moths"],
+                   "distance": "10000",
+                   "free": true,
+				   "migrating": true
+               },
+			   {
+
+               "name": "Arctic Tern",
+                 "description": "" ,
+                   "locations": ["Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean","Atlantic ocean"],
+                   "latitude": [55.616667,45.267155,32.759562,21.524627,6.217012,-6.064086,-16.393931,-31.438037,-45.897655,-42.625876,-61.317725,-61.653379,-63.748491,-65.553914,-39.985538,-11.275387,22.177232,50.000678],
+                   "longitude":[-1.65,-13.710938,-20.390625,-23.203125,-21.093750,-7.382813,-1.406250,3.867188,20.039063,69.609375,78.398438,41.132813,-4.921875,-35.156250,0.703125,-13.007813,-30.234375,-10.195313],
+                   "eats":"",
+                   "distance":"71200",
+                   "free": true,
+				   "migrating": true
+
+               },
+			   {
+                 "name": "Sooty Shearwater",
+                   "description":"",
+                   "locations": ["Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean"],
+                   "latitude": [-45.158801,-39.461644,-0.120850,19.528730,30.040566,34.497503,47.197178,40.354917,26.007424,10.022948,-13.357554,-38.916682,-45.158801],
+                   "longitude":[171.562500,-153.984375,177.539063,148.359375,133.945313,141.328125,155.742188,178.945313,-164.882813,-164.179688,-167.695313,178.242188,171.562500],
+                   "distance":"71200",
+                   "free": true,
+				   "migrating": true
+               },
+			   
 			   {
                "name": "Akekes",
                "description": "" ,
@@ -208,7 +256,7 @@
        },
        {
         "name": "Mammals",
-		"leafs": 11,
+		"leafs": 13,
         "description": "Vertebrates that give birth to live young",
         "url": "http://raw.densitydesign.org/",
         "free": true,
@@ -218,6 +266,28 @@
            "description": "" ,
 		   "eats": ["Insects","Moths"],
            "free": true
+               },
+			   {
+                "name": "Fruit Bats",
+                   "description":"",
+                   "locations": ["Namibia","Zimbabwe","Mozambique","Zambia","Democratic Republic of Congo","Nigeria","Guinea","South Sudan","Ethiopia","Tanzania","Namibia","Namibia"],
+                   "latitude": [-28.125283,-19.451054,-16.778246,-11.668376,-2.608352,6.342597,11.032864,8.955619,4.943197,-12.012458,-28.125283,-28.125283],
+                   "longitude":[17.402344,31.464844,35.156250,31.816406,22.324219,8.085938,-12.480469,27.773438,36.210938,33.925781,18.457031,17.402344],
+                   "distance":"2383.54",
+                   "eats":"",
+                   "free": true,
+				   "migrating": true
+               },
+			   {
+                 "name": "Northern Elephant Seal",
+                   "description":"",
+                   "locations": ["Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean"],
+                   "latitude": [23.669682,47.006480,51.913779,57.394664,59.598316,58.051725,55.114514,52.559656,49.685401,46.031296,43.024730,38.087013,31.751525,28.868729,23.508589,23.669682],
+                   "longitude":[-112.324219,-127.617188,-133.593750,-138.164063,-145.546875,-149.765625,-152.841797,-161.894531,-154.511719,-146.250000,-138.867188,-133.066406,-123.574219,-119.003906,-110.917969,-112.324219],
+                   "distance":"13048.79",
+                   "eats":"",
+                   "free": true,
+				   "migrating": true
                },
 			   {
                "name": "Abbotts Duiker",
@@ -283,7 +353,7 @@
        },
 	   {
         "name": "Fish",
-		"leafs": 10,
+		"leafs": 11,
         "description": "Vertebrates that breathe through gills",
         "url": "http://raw.densitydesign.org/",
         "free": true,
@@ -294,11 +364,23 @@
            "free": true
                },
 			   {
+                  "name": "Gray Whale", 
+                   "description": "",
+                   "locations": ["Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean","Pacific ocean"],
+                   "latitude": [23.473324,37.640335,50.226124,56.310443,54.718275,52.636397,62.057586,70.344623],
+                   "longitude":[-114.609375,-125.156250,-132.890625,-143.789063,-154.335938,-163.125000,-168.046875,-164.179688],
+                   "eats": "",
+                   "distance":"12000",
+                   "free": true,
+				   "migrating": true
+               },
+			   {
                "name": "Adriatic Sturgeon",
                "description": "" ,
                "eats": ["Insects","Moths"],
                "free": true
              },
+			 
              {
                "name": "Blue Whale",
                "description": "" ,
@@ -354,7 +436,7 @@
      },
      {
       "name": "Invertebrates",
-	  "leafs": 26,
+	  "leafs": 27,
       "description": "Oraganisms that don't have vertebral column",
 	  "free": true,
       "children": [
@@ -497,7 +579,7 @@
        },
 	   {
         "name": "Arthropods",
-		"leafs": 6,
+		"leafs": 7,
         "description": "Invertebrates that have exoskeleton",
         "url": "http://www.tableausoftware.com/products/desktop",
 		"free": true,
@@ -506,6 +588,17 @@
                    "name": "Insects",
                    "free": true
                },
+			   {
+                "name": "Dragonfly",
+                "description":"",
+                "locations": ["Arabian Sea","Arabian Sea","Arabian Sea","Arabian Sea","Arabian Sea","Arabian Sea","Arabian Sea","Arabian Sea"],
+                "latitude": [14.546367,4.505238,-0.763527,-5.851010,-9.335252,-9.681984,2.751018,13.694025,14.546367],
+                "longitude":[74.882813,72.773438,64.863281,53.789063,44.296875,39.726563,59.414063,74.707031,74.882813],
+                "eats":"",
+                "distance":"17000",
+                "free":true,
+				"migrating": true
+            },
             {
                    "name": "Scorpion",
                    "free": true
